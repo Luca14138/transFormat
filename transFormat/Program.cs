@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-
+using System.Threading;
 using System.Data;
 using sqlite;
-
+using MTHread;
 
 
 namespace transFormat
@@ -19,6 +19,15 @@ namespace transFormat
         [STAThread]
         static void Main()
         {
+            ///<summary>
+            ///开始监控共享文件夹
+            /// </summary>
+            MThread mThread = new MThread();
+            ThreadStart entry = new ThreadStart(mThread.Monitor);
+            Thread workThread = new Thread(entry);
+            workThread.IsBackground = true;
+            workThread.Start();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
