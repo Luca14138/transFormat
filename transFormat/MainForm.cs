@@ -19,7 +19,7 @@ namespace transFormat
 
         private void btSetFormat_Click(object sender, EventArgs e)
         {
-            Sqlite msqlite = new Sqlite(@"C: \Users\Luca\Documents\DB.sqlite");
+            
             //msqlite.CreatTable();
         }
     }

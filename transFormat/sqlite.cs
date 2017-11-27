@@ -57,6 +57,11 @@ namespace sqlite
                 this._dbpath = string.Format("{0}/{1}", AppDomain.CurrentDomain.SetupInformation.ApplicationBase, dbpath);
             }*/
             this._dbpath = dbpath;
+
+            if(!File.Exists(this._dbpath))
+            {
+                this.CreatDB();
+            }
         }
 
         /// <summary>
