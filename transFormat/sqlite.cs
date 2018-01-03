@@ -212,7 +212,8 @@ namespace sqlite
         /// </summary>
         public void CreatTable()
         {
-            string strsql = string.Format("CREATE TABLE test(username varchar(20),password varchar(20))");
+            string strsql = "CREATE TABLE OMessage(ControlID INTEGER,Value TEXT)";
+            //strsql += "";
             ExecuteNonQuery(strsql, null);
         }
     }
