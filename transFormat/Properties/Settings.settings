@@ -1,7 +1,12 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="transFormat.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MainFormExit" Type="System.String" Scope="User">
+      <Value Profile="(Default)">MainFormExit</Value>
+    </Setting>
+    <Setting Name="mainformexit2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">退出ToolStripMenuItem</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

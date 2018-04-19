@@ -1,22 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.Linq;
 using System.Text;
-using System.IO;
-using sqlite;
+
 using System.Threading;
 
-using NHapi.Base.Parser;
 using NHapi.Model.V25.Datatype;
 using NHapi.Model.V25.Message;
 using NHapi.Model.V25.Group;
 using NHapi.Model.V25.Segment;
-using NHapi.Base.Model;
 using Global;
-using transFormat.ParseMessage;
+//using transFormat.ParseMessage;
 
 namespace MTHread
 {
+    using NHapi.Base.Model;
+    using NHapi.Base.Parser;
+    using System;
+    using System.IO;
+    using System.Collections.Generic;
+    using sqlite;
+    
+
     public class MThread
     {
 
@@ -40,8 +44,8 @@ namespace MTHread
                 var hl7Files = Directory.EnumerateFiles(Global.Global.sharedpath, "*.hl7");
                 foreach (var f in hl7Files)
                 {
-                    transfom(f.ToString());
-                    //Console.WriteLine("{0}", f);       
+                    ProcessHL7Message(f.ToString());
+      
                 }
                 //Thread.Sleep(4000);
                 break;
@@ -53,61 +57,80 @@ namespace MTHread
         /// 并输出到目标文件中
         /// 保存HL7消息到数据库中，删除源文件 
         /// </summary>
-        private void transfom(string filePath)
+        private void ProcessHL7Message(string filePath)
         {
             try
-            {   // Open the text file using a stream reader.
+            {   
                 using (StreamReader sr = new StreamReader(@filePath))
                 {
-                    //读取文件
-                    String hl7text = sr.ReadToEnd();
-                    Console.WriteLine(hl7text);
+                    String hl7 = sr.ReadToEnd();
+
+                    PipeParser parser = new PipeParser();
+                    IMessage hl7Message;
+
+                    hl7Message = parser.Parse(hl7);
+
+                    if(hl7Message != null)
+                    {
+                        saveMessage(hl7Message, hl7);
+                    }
 
 
-                    /* IMessage hl7Message = null;
-                     hl7Message = parser.Parse(hl7text);
-                     ORU_R01 m = hl7Message as ORU_R01;*/
-                    var parser = new PipeParser();
-                    var m = new ORU_R01();
-                    m = (ORU_R01)parser.Parse(hl7text);
-                    saveMessage(m.MSH.MessageControlID.ToString(), hl7text, 0);
-
-                    var msgtype = new MSG(null);
-                    msgtype = m.MSH.MessageType;
-                    Console.WriteLine(msgtype.MessageStructure);
-
-                    //Console.WriteLine(m.MSH.MessageType); 
-
-                    Console.WriteLine(m.MSH.MessageControlID.ToString());
-
-                    /* ORU_R01_PATIENT patient = m.GetPATIENT_RESULT().PATIENT;
-                     PID pid = patient.PID;
-                     string PatientId = pid.GetPatientIdentifierList(0).IDNumber.ToString();
-                     Console.WriteLine(PatientId);*/
-
-                    var p = new P_ORU_R01(hl7text);
-                    p.ParseORU_R01();
                 }
             }
             catch (Exception e)
             {
-                //Console.WriteLine("The file could not be read:");
                 Console.WriteLine(e.Message);
             }
         }
 
         ///<summary>
         ///将消息存储到数据库。
-        ///type:0:原消息；1：转换后的消息。
         /// </summary>
-        private void saveMessage(string controlID,string message, int type)
+        private void saveMessage(IMessage hl7M,string hl7)
         {
-            string sql = "insert into OMessage(ControlID,value) values (@controlid,@value)";
-            Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("controlid", controlID);
-            param.Add("value", message);
+            string ctrlid = null;
+            string type = null;
+            string time = null;
+            string pid = null;
+            string text = hl7;
+            string name = null;
+            string sex = null;
 
-            msqlite.query(sql,param);
+            string m_type = hl7M.GetStructureName();
+            if(m_type.Equals("ORU_R01"))
+            {
+                var m_ORU_R01 = new ORU_R01();
+                m_ORU_R01 = (ORU_R01)hl7M;
+
+                //Table OMessage
+                ctrlid = m_ORU_R01.MSH.MessageControlID.Value;
+                type = m_type;
+                time = m_ORU_R01.MSH.DateTimeOfMessage.Time.Value;
+                pid = m_ORU_R01.GetPATIENT_RESULT().PATIENT.PID.GetPatientIdentifierList(0).IDNumber.Value;
+
+                //Table PATIENT
+                //pid
+                name = m_ORU_R01.GetPATIENT_RESULT().PATIENT.PID.GetPatientName(0).GivenName.Value.ToString();
+                Console.WriteLine(name);
+                sex = m_ORU_R01.GetPATIENT_RESULT().PATIENT.PID.AdministrativeSex.Value;
+            }
+
+            string sql1 = "insert into OMessage(CTRLID,TYPE,TIME,PID,TEXT) values (@CTRLID,@TYPE,@TIME,@PID,@TEXT)";
+            Dictionary<string, object> param1 = new Dictionary<string, object>();
+            param1.Add("CTRLID", ctrlid);
+            param1.Add("TYPE", type);
+            param1.Add("TIME", time);
+            param1.Add("PID", pid);
+            param1.Add("TEXT", text);
+            msqlite.query(sql1,param1);
+
+            string sql2 = "insert into PATIENT(PID,NAME,SEX) values (@PID,@NAME,@SEX)";
+            Dictionary<string, object> param2 = new Dictionary<string, object>();
+            param2.Add("PID", pid);
+            param2.Add("NAME", name);
+            param2.Add("SEX", sex);
+            msqlite.query(sql2, param2);
         }
     }
 }

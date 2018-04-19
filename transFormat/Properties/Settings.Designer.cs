@@ -22,5 +22,29 @@ namespace transFormat.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("MainFormExit")]
+        public string MainFormExit {
+            get {
+                return ((string)(this["MainFormExit"]));
+            }
+            set {
+                this["MainFormExit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("退出ToolStripMenuItem")]
+        public string mainformexit2 {
+            get {
+                return ((string)(this["mainformexit2"]));
+            }
+            set {
+                this["mainformexit2"] = value;
+            }
+        }
     }
 }
