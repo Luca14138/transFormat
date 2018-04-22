@@ -1,16 +1,16 @@
 ﻿namespace transFormat
 {
-    partial class MainForm
+    partial class FormatSetForm
     {
         /// <summary>
-        /// 必需的设计器变量。
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// 清理所有正在使用的资源。
+        /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,15 +20,15 @@
             base.Dispose(disposing);
         }
 
-        #region Windows 窗体设计器生成的代码
+        #region Windows Form Designer generated code
 
         /// <summary>
-        /// 设计器支持所需的方法 - 不要修改
-        /// 使用代码编辑器修改此方法的内容。
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormatSetForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tsmi_file = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -37,13 +37,9 @@
             this.tsmi_mes_brief = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi_mes_parse = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi_format = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.tsmi_format_set = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi_format_IO = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -56,8 +52,8 @@
             this.tsmi_format});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(999, 32);
-            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.Size = new System.Drawing.Size(812, 32);
+            this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // tsmi_file
@@ -114,38 +110,11 @@
             this.tsmi_format.Size = new System.Drawing.Size(58, 28);
             this.tsmi_format.Text = "格式";
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 643);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 9, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(999, 29);
-            this.statusStrip1.TabIndex = 2;
-            this.statusStrip1.Text = "当前版本号1.0.0.1";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(123, 24);
-            this.toolStripStatusLabel1.Text = "当前版本1.0.1";
-            // 
-            // panel1
-            // 
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 32);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(999, 611);
-            this.panel1.TabIndex = 3;
-            // 
             // tsmi_format_set
             // 
             this.tsmi_format_set.Name = "tsmi_format_set";
             this.tsmi_format_set.Size = new System.Drawing.Size(210, 30);
             this.tsmi_format_set.Text = "格式设置";
-            this.tsmi_format_set.Click += new System.EventHandler(this.tsmi_format_set_Click);
             // 
             // tsmi_format_IO
             // 
@@ -153,46 +122,33 @@
             this.tsmi_format_IO.Size = new System.Drawing.Size(210, 30);
             this.tsmi_format_IO.Text = "格式导入";
             // 
-            // MainForm
+            // FormatSetForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(999, 672);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.statusStrip1);
+            this.ClientSize = new System.Drawing.Size(812, 636);
             this.Controls.Add(this.menuStrip1);
-            this.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
-            this.MaximizeBox = false;
-            this.Name = "MainForm";
+            this.Name = "FormatSetForm";
             this.Text = "HL7消息转换器";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
+
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem tsmi_file;
-        private System.Windows.Forms.ToolStripMenuItem tsmi_message;
-        private System.Windows.Forms.ToolStripMenuItem tsmi_format;
-        private System.Windows.Forms.ToolStripMenuItem tsmi_mes_brief;
-        private System.Windows.Forms.ToolStripMenuItem tsmi_mes_parse;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem tsmi_exit;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_message;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_mes_brief;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_mes_parse;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_format;
         private System.Windows.Forms.ToolStripMenuItem tsmi_format_set;
         private System.Windows.Forms.ToolStripMenuItem tsmi_format_IO;
     }
 }
-

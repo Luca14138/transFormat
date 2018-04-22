@@ -61,7 +61,7 @@ namespace transFormat
                     FieldGroup messageGroup = new FieldGroup() { Name = hl7Message.GetStructureName() };
                     this.ProcessStructureGroup((AbstractGroup)hl7Message, messageGroup);
 
-                    this.treeListView1.Objects = messageGroup.FieldList;
+                    this.treeListView1.Objects = messageGroup.FieldList;  
                     this.treeListView1.ExpandAll();
                 }
             }
@@ -296,6 +296,13 @@ namespace transFormat
         private void ParseForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             System.Environment.Exit(0);
+        }
+
+        private void tsmi_format_set_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FormatSetForm objForm = new FormatSetForm();
+            objForm.Show();
         }
     }
 }

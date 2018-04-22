@@ -64,5 +64,12 @@ namespace transFormat
                 }
             }
         }
+
+        private void tsmi_format_set_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FormatSetForm objForm = new FormatSetForm();
+            objForm.Show();
+        }
     }
 }

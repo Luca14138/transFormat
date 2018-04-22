@@ -66,5 +66,12 @@ namespace transFormat
         {
             System.Environment.Exit(0);
         }
+
+        private void tsmi_format_set_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FormatSetForm objForm = new FormatSetForm();
+            objForm.Show();
+        }
     }
 }

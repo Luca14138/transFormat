@@ -61,9 +61,9 @@ namespace transFormat
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            BrightIdeasSoftware.HeaderStateStyle headerStateStyle10 = new BrightIdeasSoftware.HeaderStateStyle();
-            BrightIdeasSoftware.HeaderStateStyle headerStateStyle11 = new BrightIdeasSoftware.HeaderStateStyle();
-            BrightIdeasSoftware.HeaderStateStyle headerStateStyle12 = new BrightIdeasSoftware.HeaderStateStyle();
+            BrightIdeasSoftware.HeaderStateStyle headerStateStyle1 = new BrightIdeasSoftware.HeaderStateStyle();
+            BrightIdeasSoftware.HeaderStateStyle headerStateStyle2 = new BrightIdeasSoftware.HeaderStateStyle();
+            BrightIdeasSoftware.HeaderStateStyle headerStateStyle3 = new BrightIdeasSoftware.HeaderStateStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ParseForm));
             this.btnParse = new System.Windows.Forms.Button();
             this.headerFormatStyle1 = new BrightIdeasSoftware.HeaderFormatStyle();
@@ -88,6 +88,8 @@ namespace transFormat
             this.tsmi_format = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsmi_format_set = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_format_IO = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.treeListView1)).BeginInit();
             this.groupBox_Parse.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -108,9 +110,9 @@ namespace transFormat
             // 
             // headerFormatStyle1
             // 
-            this.headerFormatStyle1.Hot = headerStateStyle10;
-            this.headerFormatStyle1.Normal = headerStateStyle11;
-            this.headerFormatStyle1.Pressed = headerStateStyle12;
+            this.headerFormatStyle1.Hot = headerStateStyle1;
+            this.headerFormatStyle1.Normal = headerStateStyle2;
+            this.headerFormatStyle1.Pressed = headerStateStyle3;
             // 
             // treeListView1
             // 
@@ -275,12 +277,12 @@ namespace transFormat
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(207, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(125, 6);
             // 
             // tsmi_exit
             // 
             this.tsmi_exit.Name = "tsmi_exit";
-            this.tsmi_exit.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_exit.Size = new System.Drawing.Size(128, 30);
             this.tsmi_exit.Text = "退出";
             this.tsmi_exit.Click += new System.EventHandler(this.tsmi_exit_Click);
             // 
@@ -297,18 +299,21 @@ namespace transFormat
             // 
             this.tsmi_mes_brief.Image = ((System.Drawing.Image)(resources.GetObject("tsmi_mes_brief.Image")));
             this.tsmi_mes_brief.Name = "tsmi_mes_brief";
-            this.tsmi_mes_brief.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_mes_brief.Size = new System.Drawing.Size(164, 30);
             this.tsmi_mes_brief.Text = "样本总览";
             this.tsmi_mes_brief.Click += new System.EventHandler(this.tsmi_mes_brief_Click);
             // 
             // tsmi_mes_parse
             // 
             this.tsmi_mes_parse.Name = "tsmi_mes_parse";
-            this.tsmi_mes_parse.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_mes_parse.Size = new System.Drawing.Size(164, 30);
             this.tsmi_mes_parse.Text = "消息解析";
             // 
             // tsmi_format
             // 
+            this.tsmi_format.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmi_format_set,
+            this.tsmi_format_IO});
             this.tsmi_format.Name = "tsmi_format";
             this.tsmi_format.Size = new System.Drawing.Size(58, 28);
             this.tsmi_format.Text = "格式";
@@ -330,6 +335,19 @@ namespace transFormat
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(123, 24);
             this.toolStripStatusLabel1.Text = "当前版本1.0.1";
+            // 
+            // tsmi_format_set
+            // 
+            this.tsmi_format_set.Name = "tsmi_format_set";
+            this.tsmi_format_set.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_format_set.Text = "格式设置";
+            this.tsmi_format_set.Click += new System.EventHandler(this.tsmi_format_set_Click);
+            // 
+            // tsmi_format_IO
+            // 
+            this.tsmi_format_IO.Name = "tsmi_format_IO";
+            this.tsmi_format_IO.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_format_IO.Text = "格式导入";
             // 
             // ParseForm
             // 
@@ -373,5 +391,7 @@ namespace transFormat
         private System.Windows.Forms.ToolStripMenuItem tsmi_format;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_format_set;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_format_IO;
     }
 }
