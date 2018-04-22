@@ -280,5 +280,22 @@ namespace transFormat
             }
             return message;
         }
+
+        private void tsmi_exit_Click(object sender, EventArgs e)
+        {
+            System.Environment.Exit(0);
+        }
+
+        private void tsmi_mes_brief_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            SearchForm objForm = new SearchForm();
+            objForm.Show();
+        }
+
+        private void ParseForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            System.Environment.Exit(0);
+        }
     }
 }

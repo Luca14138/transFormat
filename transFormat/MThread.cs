@@ -45,7 +45,8 @@ namespace MTHread
                 foreach (var f in hl7Files)
                 {
                     ProcessHL7Message(f.ToString());
-      
+                    //Directory.Delete(f,true);
+                    File.Delete(f);
                 }
                 //Thread.Sleep(4000);
                 break;
@@ -64,7 +65,7 @@ namespace MTHread
                 using (StreamReader sr = new StreamReader(@filePath))
                 {
                     String hl7 = sr.ReadToEnd();
-
+                    Console.WriteLine(hl7);
                     PipeParser parser = new PipeParser();
                     IMessage hl7Message;
 
@@ -81,6 +82,7 @@ namespace MTHread
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                Console.WriteLine("发生错误");
             }
         }
 
@@ -123,14 +125,22 @@ namespace MTHread
             param1.Add("TIME", time);
             param1.Add("PID", pid);
             param1.Add("TEXT", text);
-            msqlite.query(sql1,param1);
+
+            if(ctrlid != null)
+            {
+                msqlite.query(sql1, param1);
+            }
 
             string sql2 = "insert into PATIENT(PID,NAME,SEX) values (@PID,@NAME,@SEX)";
             Dictionary<string, object> param2 = new Dictionary<string, object>();
             param2.Add("PID", pid);
             param2.Add("NAME", name);
             param2.Add("SEX", sex);
-            msqlite.query(sql2, param2);
+            
+            if (ctrlid != null)
+            {
+                msqlite.query(sql2, param2);
+            }
         }
     }
 }

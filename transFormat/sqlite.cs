@@ -168,7 +168,7 @@ namespace sqlite
         /// <param name="sql">要执行的sql语句</param>
         /// <param name="parameters">所需参数</param>
         /// <returns>结果DataTable</returns>
-        private DataTable ExecuteDataTable(string sql, SQLiteParameter[] parameters)
+        public DataTable ExecuteDataTable(string sql, SQLiteParameter[] parameters)
         {
             DataTable data = new DataTable();
 

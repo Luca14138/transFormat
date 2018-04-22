@@ -70,12 +70,12 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(207, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(125, 6);
             // 
             // tsmi_exit
             // 
             this.tsmi_exit.Name = "tsmi_exit";
-            this.tsmi_exit.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_exit.Size = new System.Drawing.Size(128, 30);
             this.tsmi_exit.Text = "退出";
             this.tsmi_exit.Click += new System.EventHandler(this.tsmi_exit_Click);
             // 
@@ -92,13 +92,14 @@
             // 
             this.tsmi_mes_brief.Image = ((System.Drawing.Image)(resources.GetObject("tsmi_mes_brief.Image")));
             this.tsmi_mes_brief.Name = "tsmi_mes_brief";
-            this.tsmi_mes_brief.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_mes_brief.Size = new System.Drawing.Size(164, 30);
             this.tsmi_mes_brief.Text = "样本总览";
+            this.tsmi_mes_brief.Click += new System.EventHandler(this.tsmi_mes_brief_Click);
             // 
             // tsmi_mes_parse
             // 
             this.tsmi_mes_parse.Name = "tsmi_mes_parse";
-            this.tsmi_mes_parse.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_mes_parse.Size = new System.Drawing.Size(164, 30);
             this.tsmi_mes_parse.Text = "消息解析";
             this.tsmi_mes_parse.Click += new System.EventHandler(this.tsmi_mes_parse_Click);
             // 
@@ -113,7 +114,7 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 1017);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 643);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 9, 0);
             this.statusStrip1.Size = new System.Drawing.Size(999, 29);
@@ -131,7 +132,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 32);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(999, 985);
+            this.panel1.Size = new System.Drawing.Size(999, 611);
             this.panel1.TabIndex = 3;
             // 
             // MainForm
@@ -139,7 +140,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(999, 1046);
+            this.ClientSize = new System.Drawing.Size(999, 672);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -150,6 +151,7 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "HL7消息转换器";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);

@@ -39,24 +39,30 @@ namespace transFormat
             objFrm.Show();
         }
 
-        /// <summary>
-        /// 消息解析界面
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        // 文件/退出
+        private void tsmi_exit_Click(object sender, EventArgs e)
+        {
+            System.Environment.Exit(0);
+        }
+        
+        //样本总览
+        private void tsmi_mes_brief_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            SearchForm objForm = new SearchForm();
+            objForm.Show();
+        }
+
+        // 消息解析
         private void tsmi_mes_parse_Click(object sender, EventArgs e)
         {
             ParseForm objForm = new ParseForm();
-
-            this.OpenForm(objForm);
+            this.Hide();
+            objForm.Show();
+            //this.OpenForm(objForm);
         }
 
-        /// <summary>
-        /// 文件/退出
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tsmi_exit_Click(object sender, EventArgs e)
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             System.Environment.Exit(0);
         }
