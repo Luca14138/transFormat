@@ -9,5 +9,6 @@ namespace Global
     {
         public static string sharedpath = @"..\..\..\sharedfile";
         public static string dbpath = @"..\..\..\DB.sqlite";
+        public static string rulepath= @"..\..\..\TransRules";
     }
 }

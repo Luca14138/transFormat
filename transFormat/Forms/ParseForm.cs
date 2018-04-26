@@ -61,8 +61,11 @@ namespace transFormat
                     FieldGroup messageGroup = new FieldGroup() { Name = hl7Message.GetStructureName() };
                     this.ProcessStructureGroup((AbstractGroup)hl7Message, messageGroup);
 
-                    this.treeListView1.Objects = messageGroup.FieldList;  
+                    this.treeListView1.Objects = messageGroup.FieldList;
                     this.treeListView1.ExpandAll();
+
+                    //this.showFieldGroup(messageGroup);                 
+
                 }
             }
             catch (Exception err)
@@ -280,6 +283,25 @@ namespace transFormat
             }
             return message;
         }
+        
+        //遍历FieldGroup
+        private void showFieldGroup(FieldGroup fieldgroup)
+        {
+            foreach(var m in fieldgroup.FieldList)
+            {
+                if(m is FieldGroup)
+                {
+                    showFieldGroup((FieldGroup)m);
+                }
+                else if(m is Field)
+                {
+                    Console.WriteLine(((Field)m).Name+" "+ ((Field)m).Id+ " " + ((Field)m).Value);
+                    //Console.WriteLine(((Field)m).Id);
+                    //Console.WriteLine(((Field)m).Value);
+                }
+            }
+        }
+
 
         private void tsmi_exit_Click(object sender, EventArgs e)
         {

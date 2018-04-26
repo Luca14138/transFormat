@@ -73,5 +73,12 @@ namespace transFormat
             FormatSetForm objForm = new FormatSetForm();
             objForm.Show();
         }
+
+        private void tsmi_programset_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ProgramSetForm objForm = new ProgramSetForm();
+            objForm.Show();
+        }
     }
 }
