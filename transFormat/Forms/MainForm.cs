@@ -6,8 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using sqlite;
-using Global;
+
 
 namespace transFormat
 {
@@ -17,13 +16,7 @@ namespace transFormat
         {
             InitializeComponent();
         }
-        private Sqlite msqlite = new Sqlite(Global.Global.dbpath);
-
-        private void btSetFormat_Click(object sender, EventArgs e)
-        {
-            
-            //msqlite.CreatTable();
-        }
+        private Sqlite msqlite = new Sqlite(Global.dbpath);
 
         private void OpenForm(Form objFrm)
         {

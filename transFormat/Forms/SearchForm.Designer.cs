@@ -43,6 +43,10 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.comboBox_mes_direc = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -51,10 +55,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.search_button = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tsmi_programset = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -123,7 +124,8 @@
             // 
             this.tsmi_format.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmi_format_set,
-            this.tsmi_format_IO});
+            this.tsmi_format_IO,
+            this.tsmi_programset});
             this.tsmi_format.Name = "tsmi_format";
             this.tsmi_format.Size = new System.Drawing.Size(58, 28);
             this.tsmi_format.Text = "格式";
@@ -131,14 +133,14 @@
             // tsmi_format_set
             // 
             this.tsmi_format_set.Name = "tsmi_format_set";
-            this.tsmi_format_set.Size = new System.Drawing.Size(164, 30);
+            this.tsmi_format_set.Size = new System.Drawing.Size(210, 30);
             this.tsmi_format_set.Text = "格式设置";
             this.tsmi_format_set.Click += new System.EventHandler(this.tsmi_format_set_Click);
             // 
             // tsmi_format_IO
             // 
             this.tsmi_format_IO.Name = "tsmi_format_IO";
-            this.tsmi_format_IO.Size = new System.Drawing.Size(164, 30);
+            this.tsmi_format_IO.Size = new System.Drawing.Size(210, 30);
             this.tsmi_format_IO.Text = "格式导入";
             // 
             // statusStrip1
@@ -189,6 +191,38 @@
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "查询危急值";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(473, 79);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(159, 28);
+            this.textBox2.TabIndex = 10;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(379, 82);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(44, 18);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "姓名";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(473, 28);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(159, 28);
+            this.textBox1.TabIndex = 8;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(379, 34);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(62, 18);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "样本号";
             // 
             // comboBox_mes_direc
             // 
@@ -270,37 +304,12 @@
             this.dataGridView1.Size = new System.Drawing.Size(909, 371);
             this.dataGridView1.TabIndex = 0;
             // 
-            // label4
+            // tsmi_programset
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(379, 34);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 18);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "样本号";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(473, 28);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(159, 28);
-            this.textBox1.TabIndex = 8;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(379, 82);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(44, 18);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "姓名";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(473, 79);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(159, 28);
-            this.textBox2.TabIndex = 10;
+            this.tsmi_programset.Name = "tsmi_programset";
+            this.tsmi_programset.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_programset.Text = "软件设置";
+            this.tsmi_programset.Click += new System.EventHandler(this.tsmi_programset_Click);
             // 
             // SearchForm
             // 
@@ -355,5 +364,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_programset;
     }
 }

@@ -8,7 +8,7 @@ using System.Data.SQLite;   // System.Data.SQLite.DLL
 using System.IO;    // Path
 
 
-namespace sqlite
+namespace transFormat
 {
     /// <summary>
     /// 使用方法：

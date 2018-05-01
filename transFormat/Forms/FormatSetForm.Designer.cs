@@ -50,6 +50,7 @@
             this.button_add_rule = new System.Windows.Forms.Button();
             this.button_parse = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.checkBoxEmptyFields = new System.Windows.Forms.CheckBox();
             this.button_back = new System.Windows.Forms.Button();
             this.button_modify_rule = new System.Windows.Forms.Button();
@@ -63,7 +64,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblMessageVersion = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.tsmi_programset = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.treeListView1)).BeginInit();
@@ -137,7 +138,8 @@
             // 
             this.tsmi_format.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmi_format_set,
-            this.tsmi_format_IO});
+            this.tsmi_format_IO,
+            this.tsmi_programset});
             this.tsmi_format.Name = "tsmi_format";
             this.tsmi_format.Size = new System.Drawing.Size(58, 28);
             this.tsmi_format.Text = "格式";
@@ -145,13 +147,13 @@
             // tsmi_format_set
             // 
             this.tsmi_format_set.Name = "tsmi_format_set";
-            this.tsmi_format_set.Size = new System.Drawing.Size(164, 30);
+            this.tsmi_format_set.Size = new System.Drawing.Size(210, 30);
             this.tsmi_format_set.Text = "格式设置";
             // 
             // tsmi_format_IO
             // 
             this.tsmi_format_IO.Name = "tsmi_format_IO";
-            this.tsmi_format_IO.Size = new System.Drawing.Size(164, 30);
+            this.tsmi_format_IO.Size = new System.Drawing.Size(210, 30);
             this.tsmi_format_IO.Text = "格式导入";
             // 
             // statusStrip1
@@ -267,6 +269,15 @@
             this.groupBox3.TabIndex = 21;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "功能";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(8, 185);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(98, 35);
+            this.button1.TabIndex = 23;
+            this.button1.Text = "删除规则";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // checkBoxEmptyFields
             // 
@@ -404,14 +415,12 @@
             this.lblMessageVersion.Text = "2";
             this.lblMessageVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // button1
+            // tsmi_programset
             // 
-            this.button1.Location = new System.Drawing.Point(8, 185);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(98, 35);
-            this.button1.TabIndex = 23;
-            this.button1.Text = "删除规则";
-            this.button1.UseVisualStyleBackColor = true;
+            this.tsmi_programset.Name = "tsmi_programset";
+            this.tsmi_programset.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_programset.Text = "软件设置";
+            this.tsmi_programset.Click += new System.EventHandler(this.tsmi_programset_Click);
             // 
             // FormatSetForm
             // 
@@ -488,5 +497,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblMessageVersion;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_programset;
     }
 }

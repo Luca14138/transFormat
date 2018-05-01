@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Global;
 using System.IO;
 using NHapi.Base.Model;
 using NHapi.Base.Parser;
@@ -21,7 +20,7 @@ namespace transFormat
             InitializeComponent();
             this.InitializeTreeList();
 
-            createitem(Global.Global.rulepath);//注意这两个函数的次序不能颠倒，因为createitem里有一句命令listView1.clear()
+            createitem(Global.rulepath);//注意这两个函数的次序不能颠倒，因为createitem里有一句命令listView1.clear()
             //                  把所有的列名也都删除了，如果createheader在前，listview就没有列名了。
             this.createHeader();
         }
@@ -441,7 +440,7 @@ namespace transFormat
             }
             else if (colstr.Count == 1)
             {
-                createitem(Global.Global.rulepath);
+                createitem(Global.rulepath);
                 createHeader();
                 colstr.Clear();
             }
@@ -470,6 +469,13 @@ namespace transFormat
                 myStream.Close();//关闭流
 
             }
+        }
+
+        private void tsmi_programset_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ProgramSetForm objForm = new ProgramSetForm();
+            objForm.Show();
         }
     }
 }

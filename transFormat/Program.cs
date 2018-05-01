@@ -3,7 +3,6 @@
     using System;
     using System.Windows.Forms;
     using System.Threading;
-    using MTHread;
 
     static class Program
     {

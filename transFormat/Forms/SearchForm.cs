@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SQLite;
-using sqlite;
 
 namespace transFormat
 {
@@ -15,7 +14,7 @@ namespace transFormat
     {
         SQLiteDataAdapter mAdapter;
         DataTable mTable;
-        Sqlite msqlite;
+        //Sqlite msqlite;
         SQLiteConnection mConn;
 
         public SearchForm()
@@ -26,6 +25,7 @@ namespace transFormat
         private void SearchForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             System.Environment.Exit(0);
+            mConn.Close();
         }
 
         private void tsmi_mes_parse_Click(object sender, EventArgs e)
@@ -47,7 +47,7 @@ namespace transFormat
         private void SearchForm_Load(object sender, EventArgs e)
         {
             //Sqlite msqlite = new Sqlite(Global.Global.dbpath);
-            mConn =  new SQLiteConnection(string.Format("Data Source={0};Version=3;", Global.Global.dbpath));
+            mConn =  new SQLiteConnection(string.Format("Data Source={0};Version=3;", Global.dbpath));
             mConn.Open();
 
             //获取数据库中表,加载到comboBox中
@@ -69,6 +69,13 @@ namespace transFormat
         {
             this.Hide();
             FormatSetForm objForm = new FormatSetForm();
+            objForm.Show();
+        }
+
+        private void tsmi_programset_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ProgramSetForm objForm = new ProgramSetForm();
             objForm.Show();
         }
     }

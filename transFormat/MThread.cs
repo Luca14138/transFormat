@@ -8,40 +8,38 @@ using NHapi.Model.V25.Datatype;
 using NHapi.Model.V25.Message;
 using NHapi.Model.V25.Group;
 using NHapi.Model.V25.Segment;
-using Global;
 //using transFormat.ParseMessage;
 
-namespace MTHread
+namespace transFormat
 {
     using NHapi.Base.Model;
     using NHapi.Base.Parser;
     using System;
     using System.IO;
     using System.Collections.Generic;
-    using sqlite;
     
 
     public class MThread
     {
 
         //新建线程时链接数据库 
-        private Sqlite msqlite = new Sqlite(Global.Global.dbpath);
-
+        private Sqlite msqlite = new Sqlite(Global.dbpath);
+        
         /// <summary>
         /// 新建线程，监控共享文件夹中 的文件
         /// </summary>
         public void Monitor()
         {
+            //获取共享文件夹位置。
+            getSharedPath();
+
             //确认共享文件夹
-            if (!Directory.Exists(Global.Global.sharedpath))
-            {
-                Directory.CreateDirectory(Global.Global.sharedpath);
-            }
+            checksharedfile();
 
             //每4秒扫描一次文件夹
             while (true)
             {
-                var hl7Files = Directory.EnumerateFiles(Global.Global.sharedpath, "*.hl7");
+                var hl7Files = Directory.EnumerateFiles(Global.sharedpath, "*.hl7");
                 foreach (var f in hl7Files)
                 {
                     ProcessHL7Message(f.ToString());
@@ -141,6 +139,59 @@ namespace MTHread
             {
                 msqlite.query(sql2, param2);
             }
+        }
+        /// <summary>
+        /// 检查共享文件夹
+        /// </summary>
+        private void checksharedfile()
+        {
+            if (!Directory.Exists(Global.RocheOrderPath))
+            {
+                Directory.CreateDirectory(Global.RocheOrderPath);
+            }
+            if (!Directory.Exists(Global.RocheResultPath))
+            {
+                Directory.CreateDirectory(Global.RocheResultPath);
+            }
+            if (!Directory.Exists(Global.RocheSeenPath))
+            {
+                Directory.CreateDirectory(Global.RocheSeenPath);
+            }
+
+            if (!Directory.Exists(Global.LISOrderPath))
+            {
+                Directory.CreateDirectory(Global.LISOrderPath);
+            }
+            if (!Directory.Exists(Global.LISResultPath))
+            {
+                Directory.CreateDirectory(Global.LISResultPath);
+            }
+            if (!Directory.Exists(Global.LISSeenPath))
+            {
+                Directory.CreateDirectory(Global.LISSeenPath);
+            }
+        }
+
+        /// <summary>
+        /// 从数据库同步共享文件夹路径
+        /// </summary>
+        private void getSharedPath()
+        {
+            string sql1 = "select PATH from SharedFile where NAME = 'Roche_Order'";
+            string sql2 = "select PATH from SharedFile where NAME = 'Roche_Result'";
+            string sql3 = "select PATH from SharedFile where NAME = 'Roche_Seen'";
+
+            string sql4 = "select PATH from SharedFile where NAME = 'LIS_Order'";
+            string sql5 = "select PATH from SharedFile where NAME = 'LIS_Result'";
+            string sql6 = "select PATH from SharedFile where NAME = 'LIS_Seen'";
+
+            Global.RocheOrderPath = msqlite.getOne(sql1, null).ToString();
+            Global.RocheResultPath = msqlite.getOne(sql2, null).ToString();
+            Global.RocheSeenPath = msqlite.getOne(sql3, null).ToString();
+
+            Global.LISOrderPath = msqlite.getOne(sql4, null).ToString();
+            Global.LISResultPath = msqlite.getOne(sql5, null).ToString();
+            Global.LISSeenPath = msqlite.getOne(sql6, null).ToString();
         }
     }
 }
