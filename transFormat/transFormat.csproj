@@ -161,6 +161,8 @@
     <Compile Include="Forms\SearchForm.Designer.cs">
       <DependentUpon>SearchForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Rule.cs" />
+    <Compile Include="SingleRule.cs" />
     <Compile Include="sqlite.cs" />
     <EmbeddedResource Include="Forms\FormatSetForm.resx">
       <DependentUpon>FormatSetForm.cs</DependentUpon>

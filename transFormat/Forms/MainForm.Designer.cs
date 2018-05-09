@@ -39,12 +39,14 @@
             this.tsmi_format = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi_format_set = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi_format_IO = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_programset = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.tsmi_programset = new System.Windows.Forms.ToolStripMenuItem();
+            this.Test = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -119,15 +121,22 @@
             // tsmi_format_set
             // 
             this.tsmi_format_set.Name = "tsmi_format_set";
-            this.tsmi_format_set.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_format_set.Size = new System.Drawing.Size(164, 30);
             this.tsmi_format_set.Text = "格式设置";
             this.tsmi_format_set.Click += new System.EventHandler(this.tsmi_format_set_Click);
             // 
             // tsmi_format_IO
             // 
             this.tsmi_format_IO.Name = "tsmi_format_IO";
-            this.tsmi_format_IO.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_format_IO.Size = new System.Drawing.Size(164, 30);
             this.tsmi_format_IO.Text = "格式导入";
+            // 
+            // tsmi_programset
+            // 
+            this.tsmi_programset.Name = "tsmi_programset";
+            this.tsmi_programset.Size = new System.Drawing.Size(164, 30);
+            this.tsmi_programset.Text = "软件设置";
+            this.tsmi_programset.Click += new System.EventHandler(this.tsmi_programset_Click);
             // 
             // statusStrip1
             // 
@@ -149,18 +158,22 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.Test);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 32);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(999, 611);
             this.panel1.TabIndex = 3;
             // 
-            // tsmi_programset
+            // Test
             // 
-            this.tsmi_programset.Name = "tsmi_programset";
-            this.tsmi_programset.Size = new System.Drawing.Size(210, 30);
-            this.tsmi_programset.Text = "软件设置";
-            this.tsmi_programset.Click += new System.EventHandler(this.tsmi_programset_Click);
+            this.Test.Location = new System.Drawing.Point(229, 47);
+            this.Test.Name = "Test";
+            this.Test.Size = new System.Drawing.Size(93, 45);
+            this.Test.TabIndex = 0;
+            this.Test.Text = "button1";
+            this.Test.UseVisualStyleBackColor = true;
+            this.Test.Click += new System.EventHandler(this.Test_Click);
             // 
             // MainForm
             // 
@@ -183,6 +196,7 @@
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -203,6 +217,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmi_format_set;
         private System.Windows.Forms.ToolStripMenuItem tsmi_format_IO;
         private System.Windows.Forms.ToolStripMenuItem tsmi_programset;
+        private System.Windows.Forms.Button Test;
     }
 }
 

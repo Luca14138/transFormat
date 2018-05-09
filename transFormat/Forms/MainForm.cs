@@ -73,5 +73,12 @@ namespace transFormat
             ProgramSetForm objForm = new ProgramSetForm();
             objForm.Show();
         }
+
+        private void Test_Click(object sender, EventArgs e)
+        {
+            float a = 5.00f;
+            float m = a % 1;
+            MessageBox.Show(m.ToString());
+        }
     }
 }

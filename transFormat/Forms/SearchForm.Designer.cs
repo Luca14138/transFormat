@@ -39,6 +39,7 @@
             this.tsmi_format = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi_format_set = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi_format_IO = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_programset = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -55,7 +56,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.search_button = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.tsmi_programset = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -133,15 +133,22 @@
             // tsmi_format_set
             // 
             this.tsmi_format_set.Name = "tsmi_format_set";
-            this.tsmi_format_set.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_format_set.Size = new System.Drawing.Size(164, 30);
             this.tsmi_format_set.Text = "格式设置";
             this.tsmi_format_set.Click += new System.EventHandler(this.tsmi_format_set_Click);
             // 
             // tsmi_format_IO
             // 
             this.tsmi_format_IO.Name = "tsmi_format_IO";
-            this.tsmi_format_IO.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_format_IO.Size = new System.Drawing.Size(164, 30);
             this.tsmi_format_IO.Text = "格式导入";
+            // 
+            // tsmi_programset
+            // 
+            this.tsmi_programset.Name = "tsmi_programset";
+            this.tsmi_programset.Size = new System.Drawing.Size(164, 30);
+            this.tsmi_programset.Text = "软件设置";
+            this.tsmi_programset.Click += new System.EventHandler(this.tsmi_programset_Click);
             // 
             // statusStrip1
             // 
@@ -230,7 +237,7 @@
             this.comboBox_mes_direc.Items.AddRange(new object[] {
             "IN",
             "OUT"});
-            this.comboBox_mes_direc.Location = new System.Drawing.Point(103, 121);
+            this.comboBox_mes_direc.Location = new System.Drawing.Point(103, 127);
             this.comboBox_mes_direc.Name = "comboBox_mes_direc";
             this.comboBox_mes_direc.Size = new System.Drawing.Size(162, 26);
             this.comboBox_mes_direc.TabIndex = 6;
@@ -303,13 +310,6 @@
             this.dataGridView1.RowTemplate.Height = 30;
             this.dataGridView1.Size = new System.Drawing.Size(909, 371);
             this.dataGridView1.TabIndex = 0;
-            // 
-            // tsmi_programset
-            // 
-            this.tsmi_programset.Name = "tsmi_programset";
-            this.tsmi_programset.Size = new System.Drawing.Size(210, 30);
-            this.tsmi_programset.Text = "软件设置";
-            this.tsmi_programset.Click += new System.EventHandler(this.tsmi_programset_Click);
             // 
             // SearchForm
             // 
