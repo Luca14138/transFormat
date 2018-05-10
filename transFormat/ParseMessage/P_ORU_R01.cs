@@ -24,7 +24,7 @@ namespace transFormat
         {
             this.mORU_R01 = m;
         }
-
+        #region Console
         /// <summary>
         /// 解析ORU_R01的所有字段
         /// </summary>
@@ -132,6 +132,204 @@ namespace transFormat
             //PV1-1
             Console.WriteLine("PV1-1\t" + mORU_R01.GetStructure("PV1"));
         }
+        #endregion
+
+        ///<summary>
+        ///获取MSH中的字段，返回保存结果的string
+        /// </summary>
+        public string getMSH(float[] rule)
+        {
+            int seq = 0;
+            string m = null;
+            string field = null;
+            //P_ORU_R01 pORU_R01 = new P_ORU_R01(mORU_R01);
+            for (int i = 0; rule[i] != 0; i++)
+            {
+                if (rule[i] % 1 == 0)
+                {
+                    seq = (int)rule[i];
+                    if (i != 0)
+                    {
+                        m += ",";
+                    }
+                    field = this.getMSHField(seq);
+                    if (field != null)
+                    {
+                        m += field;
+                    }
+                    else
+                    {
+                        m += "null";
+                    }
+                }
+            }
+            return m;
+        }
+
+        ///<summary>
+        ///获取PID中的字段，返回保存结果的string
+        /// </summary>
+        public string getPID(float[] rule)
+        {
+            int seq = 0;
+            string m = null;
+            string field = null;
+            for (int i = 0; rule[i] != 0; i++)
+            {
+                if (rule[i] % 1 == 0)
+                {
+                    seq = (int)rule[i];
+                    if (i != 0)
+                    {
+                        m += ",";
+                    }
+                    field = this.getPIDField(seq);
+                    if (field != null)
+                    {
+                        m += field;
+                    }
+                    else
+                    {
+                        m += "null";
+                    }
+                }
+            }
+            return m;
+        }
+
+        ///<summary>
+        ///获取PV1中的字段，返回保存结果的string
+        /// </summary>
+        public string getPV1(float[] rule)
+        {
+            int seq = 0;
+            string m = null;
+            string field = null;
+            for (int i = 0; rule[i] != 0; i++)
+            {
+                if (rule[i] % 1 == 0)
+                {
+                    seq = (int)rule[i];
+                    if (i != 0)
+                    {
+                        m += ",";
+                    }
+                    field = this.getPV1Field(seq);
+                    if (field != null)
+                    {
+                        m += field;
+                    }
+                    else
+                    {
+                        m += "null";
+                    }
+                }
+            }
+            return m;
+        }
+
+        ///<summary>
+        ///获取ORC中的字段，返回保存结果的string
+        /// </summary>
+        public string getORC(float[] rule)
+        {
+            int seq = 0;
+            string m = null;
+            string field = null;
+            for (int i = 0; rule[i] != 0; i++)
+            {
+                if (rule[i] % 1 == 0)
+                {
+                    seq = (int)rule[i];
+                    if (i != 0)
+                    {
+                        m += ",";
+                    }
+                    field = this.getORCField(seq);
+                    if (field != null)
+                    {
+                        m += field;
+                    }
+                    else
+                    {
+                        m += "null";
+                    }
+                }
+            }
+            return m;
+        }
+
+        ///<summary>
+        ///获取OBR中的字段，返回保存结果的string
+        /// </summary>
+        public string getOBR(float[] rule)
+        {
+            int seq = 0;
+            string m = null;
+            string field = null;
+            for (int i = 0; rule[i] != 0; i++)
+            {
+                if (rule[i] % 1 == 0)
+                {
+                    seq = (int)rule[i];
+                    if (i != 0)
+                    {
+                        m += ",";
+                    }
+                    field = this.getOBRField(seq);
+                    if (field != null)
+                    {
+                        m += field;
+                    }
+                    else
+                    {
+                        m += "null";
+                    }
+                }
+            }
+            return m;
+        }
+
+        ///<summary>
+        ///获取OBX中的字段，返回保存结果的string
+        /// </summary>
+        public string getOBX(float[] rule)
+        {
+            int seq = 0;
+            string m = null;
+            string field = null;
+            int resultNumber = 0;
+            resultNumber = mORU_R01.GetPATIENT_RESULT().GetORDER_OBSERVATION().OBSERVATIONRepetitionsUsed;
+
+            for (int j = 0; j < resultNumber; j++)
+            {
+                if (j != 0)
+                {
+                    m += "\r\n";
+                }
+                for (int i = 0; rule[i] != 0; i++)
+                {
+                    if (rule[i] % 1 == 0)
+                    {
+                        seq = (int)rule[i];
+                        if (i != 0)
+                        {
+                            m += ",";
+                        }
+                        field = this.getOBXField(j, seq);
+                        if (field != null)
+                        {
+                            m += field;
+                        }
+                        else
+                        {
+                            m += "null";
+                        }
+                    }
+                }
+            }
+            return m;
+        }
 
         /// <summary>
         /// 获取MSH的每个Field
@@ -139,7 +337,7 @@ namespace transFormat
         /// <param name="number"></param>
         /// <param name="second"></param>
         /// <returns></returns>
-        public string getMSHField(int number,int second=0)
+        private string getMSHField(int number,int second=0)
         {
             switch (number)
             {
@@ -202,7 +400,7 @@ namespace transFormat
         /// <param name="number"></param>
         /// <param name="second"></param>
         /// <returns></returns>
-        public string getPIDField(int number, int second = 0)
+        private string getPIDField(int number, int second = 0)
         {
             switch (number)
             {
@@ -241,7 +439,7 @@ namespace transFormat
         /// <param name="number"></param>
         /// <param name="second"></param>
         /// <returns></returns>
-        public string getPV1Field(int number, int second = 0)
+        private string getPV1Field(int number, int second = 0)
         {
             switch (number)
             {
@@ -308,12 +506,12 @@ namespace transFormat
         }
 
         /// <summary>
-        /// 获取PV1的每一个Field
+        /// 获取ORC的每一个Field
         /// </summary>
         /// <param name="number"></param>
         /// <param name="second"></param>
         /// <returns></returns>
-        public string getORCField(int number, int second = 0)
+        private string getORCField(int number, int second = 0)
         {
             switch (number)
             {
@@ -355,7 +553,7 @@ namespace transFormat
         /// <param name="number"></param>
         /// <param name="second"></param>
         /// <returns></returns>
-        public string getOBRField(int number, int second = 0)
+        private string getOBRField(int number, int second = 0)
         {
             switch (number)
             {
@@ -447,7 +645,7 @@ namespace transFormat
         /// <param name="second"></param>
         /// <param name="i">第几个结果</param>
         /// <returns></returns>
-        public string getOBXField(int i,int number, int second = 0)
+        private string getOBXField(int i,int number, int second = 0)
         {
             Console.WriteLine(mORU_R01.GetPATIENT_RESULT().GetORDER_OBSERVATION().OBSERVATIONRepetitionsUsed);
             switch (number)

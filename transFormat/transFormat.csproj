@@ -152,7 +152,9 @@
     <Compile Include="Forms\ParseForm.designer.cs">
       <DependentUpon>ParseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ParseMessage\P_ORM_O01.cs" />
     <Compile Include="ParseMessage\P_ORU_R01.cs" />
+    <Compile Include="ParseMessage\P_SSU_U03.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\SearchForm.cs">

@@ -41,8 +41,6 @@ namespace transFormat
             //确认转换规则文件
             checkTransRule();
 
-            
-
             //每4秒扫描一次Roche_Result/Roche_Seen/LIS_Order文件夹
             while (true)
             {
@@ -51,7 +49,7 @@ namespace transFormat
                 foreach (var f in hl7Files)
                 {
                     ProcessRoche_Result();
-                    //ProcessRoche_Seen();
+                    ProcessRoche_Seen();
                    // ProcessLIS_Order();
 
                 }
@@ -78,7 +76,6 @@ namespace transFormat
                             IMessage hl7Message = ParesHL7String(hl7);
                             if(hl7Message.GetType() == typeof(NHapi.Model.V25.Message.ORU_R01))
                             {
-                                Console.WriteLine(hl7Message.GetType());
                                 //第一步保存消息
                                 //saveMessage(hl7Message, hl7);
                                 //第二步转换消息
@@ -101,7 +98,36 @@ namespace transFormat
         /// </summary>
         private void ProcessRoche_Seen()
         {
+            var hl7Files = Directory.EnumerateFiles(Global.RocheSeenPath, "*.hl7");
+            if (hl7Files.Count() != 0)
+            {
+                foreach (var f in hl7Files)
+                {
+                    try
+                    {
+                        using (StreamReader sr = new StreamReader(f.ToString()))
+                        {
+                            String hl7 = sr.ReadToEnd();
+                            IMessage hl7Message = ParesHL7String(hl7);
+                            Console.WriteLine(hl7Message.GetType());
+                            if (hl7Message.GetType() == typeof(NHapi.Model.V24.Message.SSU_U03))
+                            {
+                                //第一步保存消息
+                                //saveMessage(hl7Message, hl7);
+                                //第二步转换消息
+                                TransRoche_Seen(hl7Message);
+                            }
+                        }
+                        //第三步删除消息
+                        //File.Delete(f);
 
+                    }
+                    catch (Exception err)
+                    {
+                        Console.WriteLine(err.Message);
+                    }
+                }
+            }
         }
 
         ///<summary>
@@ -123,7 +149,6 @@ namespace transFormat
                             
                             if (hl7Message.GetType() == typeof(NHapi.Model.V23.Message.ORM_O01))
                             {
-                                Console.WriteLine(hl7Message.GetType());
                                 //第一步保存消息
                                 //saveMessage(hl7Message, hl7);
                                 //第二步转换消息
@@ -147,10 +172,13 @@ namespace transFormat
         /// 将Roche_Result中的HL7文件转换为指定格式
         /// </summary>
         private string TransRoche_Result(IMessage HL7Message)
-        {
-            NHapi.Model.V25.Message.ORU_R01 mORU_R01 = (NHapi.Model.V25.Message.ORU_R01)HL7Message;
+        {       
             string tMessage = null;           
             bool exitLine = false;
+
+            NHapi.Model.V25.Message.ORU_R01 mORU_R01 = (NHapi.Model.V25.Message.ORU_R01)HL7Message;
+            P_ORU_R01 pORU_R01 = new P_ORU_R01(mORU_R01);
+
             foreach (SingleRule m in mGlobal.ResultRule.RuleGroup)
             {
                 switch (m.Name)
@@ -160,7 +188,7 @@ namespace transFormat
                         {
                             tMessage += "\r\n";
                         }
-                        tMessage += getMSH(mORU_R01,m.Numbers);
+                        tMessage += pORU_R01.getMSH(m.Numbers);
                         exitLine = true;                    
                         break;
                     case "PID":
@@ -168,7 +196,7 @@ namespace transFormat
                         {
                             tMessage += "\r\n";
                         }
-                        tMessage += getPID(mORU_R01, m.Numbers);
+                        tMessage += pORU_R01.getPID(m.Numbers);
                         exitLine = true;
                         break;
                     case "PV1":
@@ -176,7 +204,7 @@ namespace transFormat
                         {
                             tMessage += "\r\n";
                         }
-                        tMessage += getPV1(mORU_R01, m.Numbers);
+                        tMessage += pORU_R01.getPV1(m.Numbers);
                         exitLine = true;
                         break;
                     case "ORC":
@@ -184,7 +212,7 @@ namespace transFormat
                         {
                             tMessage += "\r\n";
                         }
-                        tMessage += getORC(mORU_R01, m.Numbers);
+                        tMessage += pORU_R01.getORC(m.Numbers);
                         exitLine = true;
                         break;
                     case "OBR":
@@ -192,7 +220,7 @@ namespace transFormat
                         {
                             tMessage += "\r\n";
                         }
-                        tMessage += getOBR(mORU_R01, m.Numbers);
+                        tMessage += pORU_R01.getOBR(m.Numbers);
                         exitLine = true;
                         break;
                     case "OBX":
@@ -200,7 +228,7 @@ namespace transFormat
                         {
                             tMessage += "\r\n";
                         }                        
-                        tMessage += getOBX(mORU_R01, m.Numbers);
+                        tMessage += pORU_R01.getOBX(m.Numbers);
                         exitLine = true;
                         break;
                 }
@@ -219,12 +247,15 @@ namespace transFormat
         /// <summary>
         /// 读取预设格式文件
         /// 将LIS_Order中的HL7文件转换为指定格式
-        /// </summary>
+        /// </summary>   
         private string TransLIS_Order(IMessage HL7Message)
-        {
-            NHapi.Model.V23.Message.ORM_O01 mORM_O01 = (NHapi.Model.V23.Message.ORM_O01)HL7Message;
+        {            
             string tMessage = null;
             bool exitLine = false;
+
+            NHapi.Model.V23.Message.ORM_O01 mORM_O01 = (NHapi.Model.V23.Message.ORM_O01)HL7Message;
+            P_ORM_O01 pORM_O01 = new P_ORM_O01(mORM_O01);
+
             foreach (SingleRule m in mGlobal.ResultRule.RuleGroup)
             {
                 switch (m.Name)
@@ -234,7 +265,7 @@ namespace transFormat
                         {
                             tMessage += "\r\n";
                         }
-                        tMessage += getMSH(mORM_O01, m.Numbers);
+                        tMessage += pORM_O01.getMSH( m.Numbers);
                         exitLine = true;
                         break;
                     case "PID":
@@ -242,15 +273,7 @@ namespace transFormat
                         {
                             tMessage += "\r\n";
                         }
-                        tMessage += getPID(mORM_O01, m.Numbers);
-                        exitLine = true;
-                        break;
-                    case "PV1":
-                        if (exitLine == true)
-                        {
-                            tMessage += "\r\n";
-                        }
-                        tMessage += getPV1(mORM_O01, m.Numbers);
+                        tMessage += pORM_O01.getPID(m.Numbers);
                         exitLine = true;
                         break;
                     case "ORC":
@@ -258,7 +281,7 @@ namespace transFormat
                         {
                             tMessage += "\r\n";
                         }
-                        tMessage += getORC(mORM_O01, m.Numbers);
+                        tMessage += pORM_O01.getORC(m.Numbers);
                         exitLine = true;
                         break;
                     case "OBR":
@@ -266,21 +289,70 @@ namespace transFormat
                         {
                             tMessage += "\r\n";
                         }
-                        tMessage += getOBR(mORM_O01, m.Numbers);
-                        exitLine = true;
-                        break;
-                    case "OBX":
-                        if (exitLine == true)
-                        {
-                            tMessage += "\r\n";
-                        }
-                        tMessage += getOBX(mORM_O01, m.Numbers);
+                        tMessage += pORM_O01.getOBR(m.Numbers);
                         exitLine = true;
                         break;
                 }
             }
 
             string path = Global.LISResultPath + "\\" + mORM_O01.MSH.MessageControlID.Value + ".txt";
+            FileStream f = new FileStream(path, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
+            StreamWriter sw = new StreamWriter(f);
+            sw.WriteLine(tMessage);
+            sw.Flush();
+            sw.Close();
+            f.Close();
+            return tMessage;
+        }
+
+        /// <summary>
+        /// 读取预设格式文件
+        /// 将Roche_Result中的HL7文件转换为指定格式
+        /// </summary>
+        private string TransRoche_Seen(IMessage HL7Message)
+        {
+            string tMessage = null;
+            bool exitLine = false;
+
+            NHapi.Model.V24.Message.SSU_U03 mSSU_U03 = (NHapi.Model.V24.Message.SSU_U03)HL7Message;
+            P_SSU_U03 pSSU_U03 = new P_SSU_U03(mSSU_U03);
+
+            foreach (SingleRule m in mGlobal.SeenRule.RuleGroup)
+            {
+                for(int i =0;i<m.Numbers.Count();i++)
+                {
+                    Console.WriteLine(m.Numbers[i]);
+                }
+                switch (m.Name)
+                {
+                    case "MSH":
+                        if (exitLine == true)
+                        {
+                            tMessage += "\r\n";
+                        }
+                        tMessage += pSSU_U03.getMSH(m.Numbers);
+                        exitLine = true;
+                        break;
+                    case "EQU":
+                        if (exitLine == true)
+                        {
+                            tMessage += "\r\n";
+                        }
+                        tMessage += pSSU_U03.getEQU(m.Numbers);
+                        exitLine = true;
+                        break;
+                    case "SAC":
+                        if (exitLine == true)
+                        {
+                            tMessage += "\r\n";
+                        }
+                        tMessage += pSSU_U03.getSAC(m.Numbers);
+                        exitLine = true;
+                        break;                    
+                }
+            }
+
+            string path = Global.LISSeenPath + "\\" + mSSU_U03.MSH.MessageControlID.Value + ".txt";
             FileStream f = new FileStream(path, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
             StreamWriter sw = new StreamWriter(f);
             sw.WriteLine(tMessage);
@@ -421,9 +493,9 @@ namespace transFormat
             //var transrules = Directory.EnumerateFiles(Global.rulepath, "*.txt");
             if (File.Exists(Global.ORU_R01rulepath))
             {
-                if(File.Exists(Global.OML_O21rulepath))
+                if(File.Exists(Global.ORM_O01rulepath))
                 {
-                    if(File.Exists(Global.Seenrulepath))
+                    if(File.Exists(Global.SSU_U03rulepath))
                     {
                         Global.TransFunctionEnable = true;
                         return true;
@@ -432,209 +504,7 @@ namespace transFormat
             }
             return false;               
         }
-
-        ///<summary>
-        ///获取MSH中的字段，返回保存结果的string
-        /// </summary>
-        private string getMSH(NHapi.Model.V25.Message.ORU_R01 mORU_R01,float[] rule)
-        {
-            int seq = 0;
-            string m = null;
-            string field = null;
-            P_ORU_R01 pORU_R01 = new P_ORU_R01(mORU_R01);
-            for (int i=0;rule[i] != 0;i++)
-            {
-                if(rule[i]%1 == 0)
-                {
-                    seq = (int)rule[i];
-                    if(i!=0)
-                    {
-                        m += ",";
-                    }
-                    field = pORU_R01.getMSHField(seq);
-                    if (field != null)
-                    {
-                        m += field;
-                    }
-                    else
-                    {
-                        m += "null";
-                    }                    
-                }
-            }
-            return m;
-        }
-
-        ///<summary>
-        ///获取PID中的字段，返回保存结果的string
-        /// </summary>
-        private string getPID(NHapi.Model.V25.Message.ORU_R01 mORU_R01, float[] rule)
-        {
-            int seq = 0;
-            string m = null;
-            string field = null;
-            P_ORU_R01 pORU_R01 = new P_ORU_R01(mORU_R01);
-            for (int i = 0; rule[i] != 0; i++)
-            {
-                if (rule[i] % 1 == 0)
-                {
-                    seq = (int)rule[i];
-                    if (i != 0)
-                    {
-                        m += ",";
-                    }
-                    field = pORU_R01.getPIDField(seq);
-                    if (field != null)
-                    {
-                        m += field;
-                    }
-                    else
-                    {
-                        m += "null";
-                    }
-                }
-            }
-
-            return m;
-        }
-
-        ///<summary>
-        ///获取PV1中的字段，返回保存结果的string
-        /// </summary>
-        private string getPV1(NHapi.Model.V25.Message.ORU_R01 mORU_R01, float[] rule)
-        {
-            int seq = 0;
-            string m = null;
-            string field = null;
-            P_ORU_R01 pORU_R01 = new P_ORU_R01(mORU_R01);
-            for (int i = 0; rule[i] != 0; i++)
-            {
-                if (rule[i] % 1 == 0)
-                {
-                    seq = (int)rule[i];
-                    if (i != 0)
-                    {
-                        m += ",";
-                    }
-                    field = pORU_R01.getPV1Field(seq);
-                    if (field != null)
-                    {
-                        m += field;
-                    }
-                    else
-                    {
-                        m += "null";
-                    }
-                }
-            }
-            return m;
-        }
-
-        ///<summary>
-        ///获取ORC中的字段，返回保存结果的string
-        /// </summary>
-        private string getORC(NHapi.Model.V25.Message.ORU_R01 mORU_R01, float[] rule)
-        {
-            int seq = 0;
-            string m = null;
-            string field = null;
-            P_ORU_R01 pORU_R01 = new P_ORU_R01(mORU_R01);
-            for (int i = 0; rule[i] != 0; i++)
-            {
-                if (rule[i] % 1 == 0)
-                {
-                    seq = (int)rule[i];
-                    if (i != 0)
-                    {
-                        m += ",";
-                    }
-                    field = pORU_R01.getORCField(seq);
-                    if (field != null)
-                    {
-                        m += field;
-                    }
-                    else
-                    {
-                        m += "null";
-                    }
-                }
-            }
-            return m;
-        }
-
-        ///<summary>
-        ///获取OBR中的字段，返回保存结果的string
-        /// </summary>
-        private string getOBR(NHapi.Model.V25.Message.ORU_R01 mORU_R01, float[] rule)
-        {
-            int seq = 0;
-            string m = null;
-            string field = null;
-            P_ORU_R01 pORU_R01 = new P_ORU_R01(mORU_R01);
-            for (int i = 0; rule[i] != 0; i++)
-            {
-                if (rule[i] % 1 == 0)
-                {
-                    seq = (int)rule[i];
-                    if (i != 0)
-                    {
-                        m += ",";
-                    }
-                    field = pORU_R01.getOBRField(seq);
-                    if (field != null)
-                    {
-                        m += field;
-                    }
-                    else
-                    {
-                        m += "null";
-                    }
-                }
-            }
-            return m;
-        }
-
-        ///<summary>
-        ///获取OBX中的字段，返回保存结果的string
-        /// </summary>
-        private string getOBX(NHapi.Model.V25.Message.ORU_R01 mORU_R01, float[] rule)
-        {
-            int seq = 0;
-            string m = null;
-            string field = null;
-            int resultNumber = 0;
-            resultNumber = mORU_R01.GetPATIENT_RESULT().GetORDER_OBSERVATION().OBSERVATIONRepetitionsUsed;
-
-            P_ORU_R01 pORU_R01 = new P_ORU_R01(mORU_R01);
-            for (int j=0;j<resultNumber;j++)
-            {
-                if(j!=0)
-                {
-                    m += "\r\n";
-                }
-                for (int i = 0; rule[i] != 0; i++)
-                {
-                    if (rule[i] % 1 == 0)
-                    {
-                        seq = (int)rule[i];
-                        if (i != 0)
-                        {
-                            m += ",";
-                        }
-                        field = pORU_R01.getOBXField(j, seq);
-                        if (field != null)
-                        {
-                            m += field;
-                        }
-                        else
-                        {
-                            m += "null";
-                        }
-                    }
-                }
-            }         
-            return m;
-        }
+                                    
     }
 }
 
