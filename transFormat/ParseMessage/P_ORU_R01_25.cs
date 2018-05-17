@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using NHapi.Model.V25.Datatype;
+using NHapi.Model.V23.Message;
 using NHapi.Model.V25.Message;
 using NHapi.Model.V25.Group;
 using NHapi.Model.V25.Segment;
@@ -13,14 +14,14 @@ using NHapi.Base.Model;
 
 namespace transFormat
 {
-    class P_ORU_R01
+    class P_ORU_R01_25
     {
-        private ORU_R01 mORU_R01;
+        private NHapi.Model.V25.Message.ORU_R01 mORU_R01;
 
         /// <summary>
         /// 构造函数
         /// </summary>
-        public P_ORU_R01(ORU_R01 m)
+        public P_ORU_R01_25(NHapi.Model.V25.Message.ORU_R01 m)
         {
             this.mORU_R01 = m;
         }
@@ -38,7 +39,7 @@ namespace transFormat
         ///<summary>
         ///解析MSH字段
         /// </summary>
-        private void parseMSH(ORU_R01 mORU_R01)
+        private void parseMSH(NHapi.Model.V25.Message.ORU_R01 mORU_R01)
         {
             ///<li>MSH-1: Field Separator (ST)</li>
             ///<li>MSH-2: Encoding Characters (ST)</li>
@@ -95,7 +96,7 @@ namespace transFormat
         ///<summary>
         ///解析PID字段
         /// </summary>
-        private void parsePID(ORU_R01 mORU_R01)
+        private void parsePID(NHapi.Model.V25.Message.ORU_R01 mORU_R01)
         {
             ///PID Segment 只用了8个字段
             ///<li>PID-1: Set ID - PID (SI)</li>
@@ -127,7 +128,7 @@ namespace transFormat
         ///<summary>
         ///解析PV1字段
         /// </summary>
-        private void parsePV1(ORU_R01 mORU_R01)
+        private void parsePV1(NHapi.Model.V25.Message.ORU_R01 mORU_R01)
         {
             //PV1-1
             Console.WriteLine("PV1-1\t" + mORU_R01.GetStructure("PV1"));
@@ -142,7 +143,7 @@ namespace transFormat
             int seq = 0;
             string m = null;
             string field = null;
-            //P_ORU_R01 pORU_R01 = new P_ORU_R01(mORU_R01);
+            //P_ORU_R01_25 pORU_R01 = new P_ORU_R01_25(mORU_R01);
             for (int i = 0; rule[i] != 0; i++)
             {
                 if (rule[i] % 1 == 0)
@@ -337,7 +338,7 @@ namespace transFormat
         /// <param name="number"></param>
         /// <param name="second"></param>
         /// <returns></returns>
-        private string getMSHField(int number,int second=0)
+        public string getMSHField(int number,int second=0)
         {
             switch (number)
             {
@@ -400,7 +401,7 @@ namespace transFormat
         /// <param name="number"></param>
         /// <param name="second"></param>
         /// <returns></returns>
-        private string getPIDField(int number, int second = 0)
+        public string getPIDField(int number, int second = 0)
         {
             switch (number)
             {
@@ -511,7 +512,7 @@ namespace transFormat
         /// <param name="number"></param>
         /// <param name="second"></param>
         /// <returns></returns>
-        private string getORCField(int number, int second = 0)
+        public string getORCField(int number, int second = 0)
         {
             switch (number)
             {
@@ -553,7 +554,7 @@ namespace transFormat
         /// <param name="number"></param>
         /// <param name="second"></param>
         /// <returns></returns>
-        private string getOBRField(int number, int second = 0)
+        public string getOBRField(int number, int second = 0)
         {
             switch (number)
             {
@@ -645,7 +646,7 @@ namespace transFormat
         /// <param name="second"></param>
         /// <param name="i">第几个结果</param>
         /// <returns></returns>
-        private string getOBXField(int i,int number, int second = 0)
+        public string getOBXField(int i,int number, int second = 0)
         {
             Console.WriteLine(mORU_R01.GetPATIENT_RESULT().GetORDER_OBSERVATION().OBSERVATIONRepetitionsUsed);
             switch (number)
@@ -703,4 +704,5 @@ namespace transFormat
             }
         }
     }
+
 }

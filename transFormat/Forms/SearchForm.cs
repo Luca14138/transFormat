@@ -38,6 +38,9 @@ namespace transFormat
         private void search_button_Click(object sender, EventArgs e)
         {
             //mTable = msqlite.ExecuteDataTable("SELECT * FROM [" + comboTables.Text + "]", null);
+
+
+
             mAdapter = new SQLiteDataAdapter("SELECT * FROM [" + comboTables.Text + "]", mConn);
             mTable = new DataTable(); // Don't forget initialize!
             mAdapter.Fill(mTable);
@@ -76,6 +79,13 @@ namespace transFormat
         {
             this.Hide();
             ProgramSetForm objForm = new ProgramSetForm();
+            objForm.Show();
+        }
+
+        private void tsmi_format_IO_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            RulePathSetForm objForm = new RulePathSetForm();
             objForm.Show();
         }
     }

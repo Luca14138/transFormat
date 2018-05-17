@@ -124,8 +124,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Field.cs" />
-    <Compile Include="FieldGroup.cs" />
+    <Compile Include="Field\Field.cs" />
+    <Compile Include="Field\FieldGroup.cs" />
     <Compile Include="Forms\FormatSetForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,6 +137,12 @@
     </Compile>
     <Compile Include="Forms\ProgramSetForm.Designer.cs">
       <DependentUpon>ProgramSetForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RulePathSetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RulePathSetForm.Designer.cs">
+      <DependentUpon>RulePathSetForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Global.cs" />
     <Compile Include="Forms\MainForm.cs">
@@ -153,7 +159,8 @@
       <DependentUpon>ParseForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ParseMessage\P_ORM_O01.cs" />
-    <Compile Include="ParseMessage\P_ORU_R01.cs" />
+    <Compile Include="ParseMessage\P_ORU_R01_23.cs" />
+    <Compile Include="ParseMessage\P_ORU_R01_25.cs" />
     <Compile Include="ParseMessage\P_SSU_U03.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -163,9 +170,9 @@
     <Compile Include="Forms\SearchForm.Designer.cs">
       <DependentUpon>SearchForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Rule.cs" />
-    <Compile Include="SingleRule.cs" />
-    <Compile Include="sqlite.cs" />
+    <Compile Include="Rule\Rule.cs" />
+    <Compile Include="Rule\SingleRule.cs" />
+    <Compile Include="Data\sqlite.cs" />
     <EmbeddedResource Include="Forms\FormatSetForm.resx">
       <DependentUpon>FormatSetForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -177,6 +184,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProgramSetForm.resx">
       <DependentUpon>ProgramSetForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RulePathSetForm.resx">
+      <DependentUpon>RulePathSetForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SearchForm.resx">
       <DependentUpon>SearchForm.cs</DependentUpon>

@@ -43,18 +43,12 @@ namespace transFormat
 
             //每4秒扫描一次Roche_Result/Roche_Seen/LIS_Order文件夹
             while (true)
-            {
-                var hl7Files = Directory.EnumerateFiles(Global.RocheResultPath, "*.hl7");
-                //if (hl7Files.Count() ==0) Console.WriteLine("No Files!!");
-                foreach (var f in hl7Files)
-                {
+            {               
                     ProcessRoche_Result();
                     ProcessRoche_Seen();
                    // ProcessLIS_Order();
 
-                }
                 //Thread.Sleep(3000);
-                break;
             } 
         }
         
@@ -73,17 +67,32 @@ namespace transFormat
                         using (StreamReader sr = new StreamReader(f.ToString()))
                         {
                             String hl7 = sr.ReadToEnd();
+                            if(hl7.Substring(0,2) == "\r\n")
+                            {
+                                hl7 = hl7.Remove(0,2);
+                            }
+                            if (hl7.Substring(0, 1) == "\v")
+                            {
+                                hl7 = hl7.Remove(0, 1);
+                            }
                             IMessage hl7Message = ParesHL7String(hl7);
                             if(hl7Message.GetType() == typeof(NHapi.Model.V25.Message.ORU_R01))
                             {
                                 //第一步保存消息
-                                //saveMessage(hl7Message, hl7);
+                                saveORU_R01(hl7Message, hl7,"2.5");
                                 //第二步转换消息
-                                 TransRoche_Result(hl7Message);                               
-                            }                           
+                                 TransRoche_Result(hl7Message,"2.5");                               
+                            }
+                            else if(hl7Message.GetType() == typeof(NHapi.Model.V23.Message.ORU_R01))
+                            {
+                                //第一步保存消息
+                                saveORU_R01(hl7Message, hl7, "2.3");
+                                //第二步转换消息
+                                TransRoche_Result(hl7Message, "2.3");
+                            }                         
                         }
                         //第三步删除消息
-                        //File.Delete(f);
+                        File.Delete(f);
 
                     }
                     catch(Exception err)
@@ -108,18 +117,26 @@ namespace transFormat
                         using (StreamReader sr = new StreamReader(f.ToString()))
                         {
                             String hl7 = sr.ReadToEnd();
+                            if (hl7.Substring(0, 2) == "\r\n")
+                            {
+                                hl7 = hl7.Remove(0, 2);
+                            }
+                            if (hl7.Substring(0, 1) == "\v")
+                            {
+                                hl7 = hl7.Remove(0, 1);
+                            }
                             IMessage hl7Message = ParesHL7String(hl7);
                             Console.WriteLine(hl7Message.GetType());
                             if (hl7Message.GetType() == typeof(NHapi.Model.V24.Message.SSU_U03))
                             {
-                                //第一步保存消息
-                                //saveMessage(hl7Message, hl7);
+                                //第一步保存消息                              
+                                saveSSU_U03(hl7Message, hl7);
                                 //第二步转换消息
                                 TransRoche_Seen(hl7Message);
                             }
                         }
                         //第三步删除消息
-                        //File.Delete(f);
+                        File.Delete(f);
 
                     }
                     catch (Exception err)
@@ -171,70 +188,138 @@ namespace transFormat
         /// 读取预设格式文件
         /// 将Roche_Result中的HL7文件转换为指定格式
         /// </summary>
-        private string TransRoche_Result(IMessage HL7Message)
+        private string TransRoche_Result(IMessage HL7Message, string version)
         {       
             string tMessage = null;           
             bool exitLine = false;
-
-            NHapi.Model.V25.Message.ORU_R01 mORU_R01 = (NHapi.Model.V25.Message.ORU_R01)HL7Message;
-            P_ORU_R01 pORU_R01 = new P_ORU_R01(mORU_R01);
-
-            foreach (SingleRule m in mGlobal.ResultRule.RuleGroup)
+            string path = null;
+            switch (version)
             {
-                switch (m.Name)
-                {
-                    case "MSH":
-                        if(exitLine == true)
-                        {
-                            tMessage += "\r\n";
-                        }
-                        tMessage += pORU_R01.getMSH(m.Numbers);
-                        exitLine = true;                    
-                        break;
-                    case "PID":
-                        if (exitLine == true)
-                        {
-                            tMessage += "\r\n";
-                        }
-                        tMessage += pORU_R01.getPID(m.Numbers);
-                        exitLine = true;
-                        break;
-                    case "PV1":
-                        if (exitLine == true)
-                        {
-                            tMessage += "\r\n";
-                        }
-                        tMessage += pORU_R01.getPV1(m.Numbers);
-                        exitLine = true;
-                        break;
-                    case "ORC":
-                        if (exitLine == true)
-                        {
-                            tMessage += "\r\n";
-                        }
-                        tMessage += pORU_R01.getORC(m.Numbers);
-                        exitLine = true;
-                        break;
-                    case "OBR":
-                        if (exitLine == true)
-                        {
-                            tMessage += "\r\n";
-                        }
-                        tMessage += pORU_R01.getOBR(m.Numbers);
-                        exitLine = true;
-                        break;
-                    case "OBX":
-                        if (exitLine == true)
-                        {
-                            tMessage += "\r\n";
-                        }                        
-                        tMessage += pORU_R01.getOBX(m.Numbers);
-                        exitLine = true;
-                        break;
-                }
-            }
+                case "2.5":
+                    NHapi.Model.V25.Message.ORU_R01 mORU_R01_25 = (NHapi.Model.V25.Message.ORU_R01)HL7Message;
+                    P_ORU_R01_25 pORU_R01_25 = new P_ORU_R01_25(mORU_R01_25);
 
-            string path = Global.LISResultPath + "\\" + mORU_R01.MSH.MessageControlID.Value + ".txt";
+                    foreach (SingleRule m in mGlobal.ResultRule.RuleGroup)
+                    {
+                        switch (m.Name)
+                        {
+                            case "MSH":
+                                if (exitLine == true)
+                                {
+                                    tMessage += "\r\n";
+                                }
+                                tMessage += pORU_R01_25.getMSH(m.Numbers);
+                                exitLine = true;
+                                break;
+                            case "PID":
+                                if (exitLine == true)
+                                {
+                                    tMessage += "\r\n";
+                                }
+                                tMessage += pORU_R01_25.getPID(m.Numbers);
+                                exitLine = true;
+                                break;
+                            case "PV1":
+                                if (exitLine == true)
+                                {
+                                    tMessage += "\r\n";
+                                }
+                                tMessage += pORU_R01_25.getPV1(m.Numbers);
+                                exitLine = true;
+                                break;
+                            case "ORC":
+                                if (exitLine == true)
+                                {
+                                    tMessage += "\r\n";
+                                }
+                                tMessage += pORU_R01_25.getORC(m.Numbers);
+                                exitLine = true;
+                                break;
+                            case "OBR":
+                                if (exitLine == true)
+                                {
+                                    tMessage += "\r\n";
+                                }
+                                tMessage += pORU_R01_25.getOBR(m.Numbers);
+                                exitLine = true;
+                                break;
+                            case "OBX":
+                                if (exitLine == true)
+                                {
+                                    tMessage += "\r\n";
+                                }
+                                tMessage += pORU_R01_25.getOBX(m.Numbers);
+                                exitLine = true;
+                                break;
+                        }
+                    }
+                    path = Global.LISResultPath + "\\" + mORU_R01_25.MSH.MessageControlID.Value + ".txt";
+
+                    break;
+                case "2.3":
+                    NHapi.Model.V23.Message.ORU_R01 mORU_R01_23 = (NHapi.Model.V23.Message.ORU_R01)HL7Message;
+                    P_ORU_R01_23 pORU_R01_23 = new P_ORU_R01_23(mORU_R01_23);
+
+                    foreach (SingleRule m in mGlobal.ResultRule.RuleGroup)
+                    {
+                        switch (m.Name)
+                        {
+                            case "MSH":
+                                if (exitLine == true)
+                                {
+                                    tMessage += "\r\n";
+                                }
+                                tMessage += pORU_R01_23.getMSH(m.Numbers);
+                                exitLine = true;
+                                break;
+                            case "PID":
+                                if (exitLine == true)
+                                {
+                                    tMessage += "\r\n";
+                                }
+                                tMessage += pORU_R01_23.getPID(m.Numbers);
+                                exitLine = true;
+                                break;
+                            case "PV1":
+                                if (exitLine == true)
+                                {
+                                    tMessage += "\r\n";
+                                }
+                                tMessage += pORU_R01_23.getPV1(m.Numbers);
+                                exitLine = true;
+                                break;
+                            case "ORC":
+                                if (exitLine == true)
+                                {
+                                    tMessage += "\r\n";
+                                }
+                                tMessage += pORU_R01_23.getORC(m.Numbers);
+                                exitLine = true;
+                                break;
+                            case "OBR":
+                                if (exitLine == true)
+                                {
+                                    tMessage += "\r\n";
+                                }
+                                tMessage += pORU_R01_23.getOBR(m.Numbers);
+                                exitLine = true;
+                                break;
+                            case "OBX":
+                                if (exitLine == true)
+                                {
+                                    tMessage += "\r\n";
+                                }
+                                tMessage += pORU_R01_23.getOBX(m.Numbers);
+                                exitLine = true;
+                                break;
+                        }
+                    }
+                    path = Global.LISResultPath + "\\" + mORU_R01_23.MSH.MessageControlID.Value + ".txt";
+                    break;
+            }
+            
+
+           
             FileStream f = new FileStream(path, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
             StreamWriter sw = new StreamWriter(f);
             sw.WriteLine(tMessage);
@@ -375,59 +460,114 @@ namespace transFormat
         }
 
         ///<summary>
-        ///将消息存储到数据库。
+        ///保存Result
         /// </summary>
-        private void saveMessage(IMessage hl7M,string hl7)
+        private void saveORU_R01(IMessage hl7M, string hl7,string version)
         {
-            string ctrlid = null;
-            string type = null;
-            string time = null;
-            string pid = null;
-            string text = hl7;
-            string name = null;
-            string sex = null;
+            string CtrID = null;
+            string sampleID = null;//样本ID
+            string mesDescription = null; //消息名称OrderRequest/SampleResult/SampleSeen
+            string PID = null;//病人ID
+            string PName = null; //病人姓名
+            string text = null; //文本内容
+            string SEX = null;
 
-            string m_type = hl7M.GetStructureName();
-            if(m_type.Equals("ORU_R01"))
+            string mString = null;
+
+            switch (version)
             {
-                var m_ORU_R01 = new NHapi.Model.V25.Message.ORU_R01();
-                m_ORU_R01 = (NHapi.Model.V25.Message.ORU_R01)hl7M;
+                case "2.5":
+                    NHapi.Model.V25.Message.ORU_R01 mORU_R01_25 = (NHapi.Model.V25.Message.ORU_R01)hl7M;
+                    P_ORU_R01_25 pORU_R01_25 = new P_ORU_R01_25(mORU_R01_25);
+                    mString = pORU_R01_25.getMSHField(10);
 
-                //Table OMessage
-                ctrlid = m_ORU_R01.MSH.MessageControlID.Value;
-                type = m_type;
-                time = m_ORU_R01.MSH.DateTimeOfMessage.Time.Value;
-                pid = m_ORU_R01.GetPATIENT_RESULT().PATIENT.PID.GetPatientIdentifierList(0).IDNumber.Value;
+                    CtrID = mString.Substring(mString.Length - 7);
+                    sampleID = pORU_R01_25.getORCField(2);
+                    mesDescription = "SampleResult";
+                    PID = pORU_R01_25.getPIDField(3);  
+                    text = hl7;
 
-                //Table PATIENT
-                //pid
-                name = m_ORU_R01.GetPATIENT_RESULT().PATIENT.PID.GetPatientName(0).GivenName.Value.ToString();
-                Console.WriteLine(name);
-                sex = m_ORU_R01.GetPATIENT_RESULT().PATIENT.PID.AdministrativeSex.Value;
+                    PName = pORU_R01_25.getPIDField(5);
+                    SEX = pORU_R01_25.getPIDField(8);
+                    break;
+                case "2.3":
+                    NHapi.Model.V23.Message.ORU_R01 mORU_R01_23 = (NHapi.Model.V23.Message.ORU_R01)hl7M;
+                    P_ORU_R01_23 pORU_R01_23 = new P_ORU_R01_23(mORU_R01_23);
+                    mString = pORU_R01_23.getMSHField(10);
+
+                    CtrID = mString.Substring(mString.Length - 7);
+                    sampleID = pORU_R01_23.getORCField(2);
+                    mesDescription = "SampleResult";
+                    PID = pORU_R01_23.getPIDField(3);
+                    text = hl7;
+
+                    PName = pORU_R01_23.getPIDField(5);
+                    SEX = pORU_R01_23.getPIDField(8);
+                    break;
             }
-
-            string sql1 = "insert into OMessage(CTRLID,TYPE,TIME,PID,TEXT) values (@CTRLID,@TYPE,@TIME,@PID,@TEXT)";
-            Dictionary<string, object> param1 = new Dictionary<string, object>();
-            param1.Add("CTRLID", ctrlid);
-            param1.Add("TYPE", type);
-            param1.Add("TIME", time);
-            param1.Add("PID", pid);
-            param1.Add("TEXT", text);
-
-            if(ctrlid != null)
-            {
-                msqlite.query(sql1, param1);
-            }
-
-            string sql2 = "insert into PATIENT(PID,NAME,SEX) values (@PID,@NAME,@SEX)";
-            Dictionary<string, object> param2 = new Dictionary<string, object>();
-            param2.Add("PID", pid);
-            param2.Add("NAME", name);
-            param2.Add("SEX", sex);
             
-            if (ctrlid != null)
+
+            saveOMessage(CtrID, sampleID, mesDescription, PID, text);
+            savePATIENT(PID,PName,SEX);
+        }
+
+        ///<summary>
+        ///保存Seen
+        /// </summary>
+        private void saveSSU_U03(IMessage hl7M, string hl7)
+        {
+            string CtrID = null;
+            string sampleID = null;//样本ID
+            string mesDescription = null; //消息名称OrderRequest/SampleResult/SampleSeen
+            string PID = "null";//病人ID
+            string text = null; //文本内容
+
+            NHapi.Model.V24.Message.SSU_U03 mSSU_U03 = (NHapi.Model.V24.Message.SSU_U03)hl7M;
+            P_SSU_U03 pSSU_U03 = new P_SSU_U03(mSSU_U03);
+
+            CtrID = pSSU_U03.getMSHField(10);
+            sampleID = pSSU_U03.getSACField(4);
+            mesDescription = "SampleSeen";
+            PID = "0";
+            text = hl7;
+
+            saveOMessage(CtrID, sampleID, mesDescription, PID, text);
+
+        }
+
+        ///<summary>
+        ///保存OMessage表
+        /// </summary>
+        private void saveOMessage(string ctrid, string sampleid,string mesdescription,string pid,string text)
+        {
+            string sql = "insert into OMessage(CtrID,SampleID,MesDescription,PID,TEXT) values (@CtrID,@SampleID,@MesDescription,@PID,@TEXT)";
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("CtrID", ctrid);
+            param.Add("SampleID", sampleid);
+            param.Add("MesDescription", mesdescription);
+            param.Add("PID", pid);
+            param.Add("TEXT", text);
+
+            if (ctrid != null)
             {
-                msqlite.query(sql2, param2);
+                msqlite.query(sql, param);
+            }
+        }
+
+        ///<summary>
+        ///保存Patient表
+        /// </summary>
+        private void savePATIENT(string PID, string NAME, string SEX)
+        {
+            string sql = "insert into Patient(PID,NAME,SEX) values (@PID,@NAME,@SEX)";
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("PID", PID);
+            param.Add("NAME", NAME);
+            param.Add("SEX", SEX);
+
+            if (PID != null)
+            {
+                msqlite.query(sql, param);
             }
         }
 

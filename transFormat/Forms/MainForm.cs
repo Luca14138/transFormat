@@ -80,5 +80,12 @@ namespace transFormat
             float m = a % 1;
             MessageBox.Show(m.ToString());
         }
+
+        private void tsmi_format_IO_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            RulePathSetForm objForm = new RulePathSetForm();
+            objForm.Show();
+        }
     }
 }

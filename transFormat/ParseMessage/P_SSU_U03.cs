@@ -117,7 +117,7 @@ namespace transFormat
         /// <param name="number"></param>
         /// <param name="second"></param>
         /// <returns></returns>
-        private string getMSHField(int number, int second = 0)
+        public string getMSHField(int number, int second = 0)
         {
             switch (number)
             {
@@ -186,7 +186,7 @@ namespace transFormat
         /// <param name="number"></param>
         /// <param name="second"></param>
         /// <returns></returns>
-        private string getEQUField(int number, int second = 0)
+        public string getEQUField(int number, int second = 0)
         {
             switch (number)
             {
@@ -209,14 +209,14 @@ namespace transFormat
                     return null;
             }
         }
-       
+
         /// <summary>
         /// 获取SAC的每个Field
         /// </summary>
         /// <param name="number"></param>
         /// <param name="second"></param>
         /// <returns></returns>
-        private string getSACField(int number, int second = 0)
+        public string getSACField(int number, int second = 0)
         {
             switch (number)
             {

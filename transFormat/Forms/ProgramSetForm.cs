@@ -202,6 +202,11 @@ namespace transFormat
             }
         }
 
-
+        private void tsmi_format_IO_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            RulePathSetForm objForm = new RulePathSetForm();
+            objForm.Show();
+        }
     }
 }

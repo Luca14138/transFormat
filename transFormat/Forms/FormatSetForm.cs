@@ -25,6 +25,7 @@ namespace transFormat
             this.createHeader();
         }
 
+        private string openRuleFilePath = null;//ListView中打开rule的路径
 
         #region ListView
         private System.Collections.Specialized.StringCollection colstr = new System.Collections.Specialized.StringCollection();
@@ -111,6 +112,7 @@ namespace transFormat
             {
                 //System.Diagnostics.Process.Start(filename);
                 //MessageBox.Show(filename);
+                openRuleFilePath = filename;
                 try
                 {
                     using (StreamReader sr = new StreamReader(filename))
@@ -138,9 +140,22 @@ namespace transFormat
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void button_parse_Click(object sender, EventArgs e)
         {
+            if(this.tbMessage.Text.Trim() == "")
+            {
+                MessageBox.Show("请输入HL7消息");
+                return;
+            }
             try
             {
                 string hl7 = this.tbMessage.Text;
+                if (hl7.Substring(0, 2) == "\r\n")
+                {
+                    hl7 = hl7.Remove(0, 2);
+                }
+                else if (hl7.Substring(0, 1) == "\v")
+                {
+                    hl7 = hl7.Remove(0, 1);
+                }
 
                 PipeParser parser = new PipeParser();
                 IMessage hl7Message;
@@ -430,7 +445,7 @@ namespace transFormat
             System.Environment.Exit(0);
         }
 
-        private void button_back_Click(object sender, EventArgs e)
+        /*private void button_back_Click(object sender, EventArgs e)
         {
             if (colstr.Count > 1)
             {
@@ -444,7 +459,7 @@ namespace transFormat
                 createHeader();
                 colstr.Clear();
             }
-        }
+        }*/
 
         private void button_add_rule_Click(object sender, EventArgs e)
         {
@@ -469,6 +484,10 @@ namespace transFormat
                 myStream.Close();//关闭流
 
             }
+
+            createitem(Global.rulepath);//注意这两个函数的次序不能颠倒，因为createitem里有一句命令listView1.clear()
+            //                  把所有的列名也都删除了，如果createheader在前，listview就没有列名了。
+            this.createHeader();
         }
 
         private void tsmi_programset_Click(object sender, EventArgs e)
@@ -476,6 +495,46 @@ namespace transFormat
             this.Hide();
             ProgramSetForm objForm = new ProgramSetForm();
             objForm.Show();
+        }
+
+        private void button_delete_rule_Click(object sender, EventArgs e)
+        {
+            if(openRuleFilePath != null)
+            {
+                File.Delete(openRuleFilePath);
+            }
+            createitem(Global.rulepath);//注意这两个函数的次序不能颠倒，因为createitem里有一句命令listView1.clear()
+            //                  把所有的列名也都删除了，如果createheader在前，listview就没有列名了。
+            this.createHeader();
+            this.textBox_rule.Text = null;
+        }
+
+        private void button_save_rule_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                StreamWriter mStream;
+                mStream = new StreamWriter(openRuleFilePath,false);
+
+                mStream.Write(textBox_rule.Text); //写入
+
+                mStream.Close();//关闭流
+
+                MessageBox.Show("保存成功！");
+            }
+            catch(Exception err)
+            {
+                Console.WriteLine(err.Message);
+            }
+
+
+        }
+
+        private void tsmi_format_IO_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            RulePathSetForm objForm = new RulePathSetForm();
+            objForm.Show(); 
         }
     }
 }

@@ -61,9 +61,9 @@ namespace transFormat
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            BrightIdeasSoftware.HeaderStateStyle headerStateStyle4 = new BrightIdeasSoftware.HeaderStateStyle();
-            BrightIdeasSoftware.HeaderStateStyle headerStateStyle5 = new BrightIdeasSoftware.HeaderStateStyle();
-            BrightIdeasSoftware.HeaderStateStyle headerStateStyle6 = new BrightIdeasSoftware.HeaderStateStyle();
+            BrightIdeasSoftware.HeaderStateStyle headerStateStyle1 = new BrightIdeasSoftware.HeaderStateStyle();
+            BrightIdeasSoftware.HeaderStateStyle headerStateStyle2 = new BrightIdeasSoftware.HeaderStateStyle();
+            BrightIdeasSoftware.HeaderStateStyle headerStateStyle3 = new BrightIdeasSoftware.HeaderStateStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ParseForm));
             this.btnParse = new System.Windows.Forms.Button();
             this.headerFormatStyle1 = new BrightIdeasSoftware.HeaderFormatStyle();
@@ -88,9 +88,9 @@ namespace transFormat
             this.tsmi_format = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi_format_set = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi_format_IO = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_programset = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tsmi_programset = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.treeListView1)).BeginInit();
             this.groupBox_Parse.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -111,9 +111,9 @@ namespace transFormat
             // 
             // headerFormatStyle1
             // 
-            this.headerFormatStyle1.Hot = headerStateStyle4;
-            this.headerFormatStyle1.Normal = headerStateStyle5;
-            this.headerFormatStyle1.Pressed = headerStateStyle6;
+            this.headerFormatStyle1.Hot = headerStateStyle1;
+            this.headerFormatStyle1.Normal = headerStateStyle2;
+            this.headerFormatStyle1.Pressed = headerStateStyle3;
             // 
             // treeListView1
             // 
@@ -332,6 +332,14 @@ namespace transFormat
             this.tsmi_format_IO.Name = "tsmi_format_IO";
             this.tsmi_format_IO.Size = new System.Drawing.Size(210, 30);
             this.tsmi_format_IO.Text = "格式导入";
+            this.tsmi_format_IO.Click += new System.EventHandler(this.tsmi_format_IO_Click);
+            // 
+            // tsmi_programset
+            // 
+            this.tsmi_programset.Name = "tsmi_programset";
+            this.tsmi_programset.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_programset.Text = "软件设置";
+            this.tsmi_programset.Click += new System.EventHandler(this.tsmi_programset_Click);
             // 
             // statusStrip1
             // 
@@ -350,13 +358,6 @@ namespace transFormat
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(123, 24);
             this.toolStripStatusLabel1.Text = "当前版本1.0.1";
-            // 
-            // tsmi_programset
-            // 
-            this.tsmi_programset.Name = "tsmi_programset";
-            this.tsmi_programset.Size = new System.Drawing.Size(210, 30);
-            this.tsmi_programset.Text = "软件设置";
-            this.tsmi_programset.Click += new System.EventHandler(this.tsmi_programset_Click);
             // 
             // ParseForm
             // 

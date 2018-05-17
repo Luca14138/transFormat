@@ -133,20 +133,21 @@
             // tsmi_format_set
             // 
             this.tsmi_format_set.Name = "tsmi_format_set";
-            this.tsmi_format_set.Size = new System.Drawing.Size(164, 30);
+            this.tsmi_format_set.Size = new System.Drawing.Size(210, 30);
             this.tsmi_format_set.Text = "格式设置";
             this.tsmi_format_set.Click += new System.EventHandler(this.tsmi_format_set_Click);
             // 
             // tsmi_format_IO
             // 
             this.tsmi_format_IO.Name = "tsmi_format_IO";
-            this.tsmi_format_IO.Size = new System.Drawing.Size(164, 30);
+            this.tsmi_format_IO.Size = new System.Drawing.Size(210, 30);
             this.tsmi_format_IO.Text = "格式导入";
+            this.tsmi_format_IO.Click += new System.EventHandler(this.tsmi_format_IO_Click);
             // 
             // tsmi_programset
             // 
             this.tsmi_programset.Name = "tsmi_programset";
-            this.tsmi_programset.Size = new System.Drawing.Size(164, 30);
+            this.tsmi_programset.Size = new System.Drawing.Size(210, 30);
             this.tsmi_programset.Text = "软件设置";
             this.tsmi_programset.Click += new System.EventHandler(this.tsmi_programset_Click);
             // 
@@ -264,11 +265,9 @@
             // 
             this.comboBox_mes_type.FormattingEnabled = true;
             this.comboBox_mes_type.Items.AddRange(new object[] {
-            "OrderResults",
-            "TestRequests",
+            "SampleOrder",
             "SampleResult",
-            "SampleQuery",
-            "SampleEvent"});
+            "SampleSeen"});
             this.comboBox_mes_type.Location = new System.Drawing.Point(103, 26);
             this.comboBox_mes_type.Name = "comboBox_mes_type";
             this.comboBox_mes_type.Size = new System.Drawing.Size(162, 26);

@@ -41,6 +41,14 @@ namespace transFormat
             try
             {
                 string hl7 = this.tbMessage.Text;
+                if (hl7.Substring(0, 2) == "\r\n")
+                {
+                    hl7 = hl7.Remove(0, 2);
+                }
+                else if(hl7.Substring(0, 1) == "\v")
+                {
+                    hl7 = hl7.Remove(0, 1);
+                }
 
                 PipeParser parser = new PipeParser();
                 IMessage hl7Message;
@@ -331,6 +339,13 @@ namespace transFormat
         {
             this.Hide();
             ProgramSetForm objForm = new ProgramSetForm();
+            objForm.Show();
+        }
+
+        private void tsmi_format_IO_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            RulePathSetForm objForm = new RulePathSetForm();
             objForm.Show();
         }
     }

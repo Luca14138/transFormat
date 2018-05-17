@@ -20,6 +20,7 @@ namespace transFormat
         public static string sharedpath = @"..\..\..\sharedfile";
         public static string dbpath = @"..\..\..\DB.sqlite"; 
         public static string rulepath = @"..\..\..\TransRules";
+        public static string rulebackpath = @"..\..\..\TransRules\back";
         public static string ORU_R01rulepath= @"..\..\..\TransRules\ORU_R01.txt";
         public static string ORM_O01rulepath = @"..\..\..\TransRules\ORM_O01.txt";
         public static string SSU_U03rulepath = @"..\..\..\TransRules\SSU_U03.txt";

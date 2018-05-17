@@ -40,6 +40,7 @@
             this.tsmi_format = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi_format_set = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi_format_IO = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_programset = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tbMessage = new System.Windows.Forms.TextBox();
@@ -50,10 +51,9 @@
             this.button_add_rule = new System.Windows.Forms.Button();
             this.button_parse = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.button_delete_rule = new System.Windows.Forms.Button();
             this.checkBoxEmptyFields = new System.Windows.Forms.CheckBox();
-            this.button_back = new System.Windows.Forms.Button();
-            this.button_modify_rule = new System.Windows.Forms.Button();
+            this.button_save_rule = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
             this.textBox_rule = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -64,7 +64,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblMessageVersion = new System.Windows.Forms.Label();
-            this.tsmi_programset = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.treeListView1)).BeginInit();
@@ -155,6 +154,14 @@
             this.tsmi_format_IO.Name = "tsmi_format_IO";
             this.tsmi_format_IO.Size = new System.Drawing.Size(210, 30);
             this.tsmi_format_IO.Text = "格式导入";
+            this.tsmi_format_IO.Click += new System.EventHandler(this.tsmi_format_IO_Click);
+            // 
+            // tsmi_programset
+            // 
+            this.tsmi_programset.Name = "tsmi_programset";
+            this.tsmi_programset.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_programset.Text = "软件设置";
+            this.tsmi_programset.Click += new System.EventHandler(this.tsmi_programset_Click);
             // 
             // statusStrip1
             // 
@@ -237,7 +244,7 @@
             // 
             // button_add_rule
             // 
-            this.button_add_rule.Location = new System.Drawing.Point(6, 103);
+            this.button_add_rule.Location = new System.Drawing.Point(6, 65);
             this.button_add_rule.Name = "button_add_rule";
             this.button_add_rule.Size = new System.Drawing.Size(98, 35);
             this.button_add_rule.TabIndex = 19;
@@ -247,7 +254,7 @@
             // 
             // button_parse
             // 
-            this.button_parse.Location = new System.Drawing.Point(6, 65);
+            this.button_parse.Location = new System.Drawing.Point(6, 147);
             this.button_parse.Name = "button_parse";
             this.button_parse.Size = new System.Drawing.Size(98, 32);
             this.button_parse.TabIndex = 20;
@@ -257,33 +264,33 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.button1);
+            this.groupBox3.Controls.Add(this.button_delete_rule);
             this.groupBox3.Controls.Add(this.checkBoxEmptyFields);
-            this.groupBox3.Controls.Add(this.button_back);
-            this.groupBox3.Controls.Add(this.button_modify_rule);
+            this.groupBox3.Controls.Add(this.button_save_rule);
             this.groupBox3.Controls.Add(this.button_add_rule);
             this.groupBox3.Controls.Add(this.button_parse);
             this.groupBox3.Location = new System.Drawing.Point(12, 36);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(135, 431);
+            this.groupBox3.Size = new System.Drawing.Size(135, 323);
             this.groupBox3.TabIndex = 21;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "功能";
             // 
-            // button1
+            // button_delete_rule
             // 
-            this.button1.Location = new System.Drawing.Point(8, 185);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(98, 35);
-            this.button1.TabIndex = 23;
-            this.button1.Text = "删除规则";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button_delete_rule.Location = new System.Drawing.Point(6, 106);
+            this.button_delete_rule.Name = "button_delete_rule";
+            this.button_delete_rule.Size = new System.Drawing.Size(98, 35);
+            this.button_delete_rule.TabIndex = 23;
+            this.button_delete_rule.Text = "删除规则";
+            this.button_delete_rule.UseVisualStyleBackColor = true;
+            this.button_delete_rule.Click += new System.EventHandler(this.button_delete_rule_Click);
             // 
             // checkBoxEmptyFields
             // 
             this.checkBoxEmptyFields.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxEmptyFields.AutoSize = true;
-            this.checkBoxEmptyFields.Location = new System.Drawing.Point(8, 228);
+            this.checkBoxEmptyFields.Location = new System.Drawing.Point(6, 187);
             this.checkBoxEmptyFields.Margin = new System.Windows.Forms.Padding(5);
             this.checkBoxEmptyFields.Name = "checkBoxEmptyFields";
             this.checkBoxEmptyFields.Size = new System.Drawing.Size(106, 22);
@@ -291,24 +298,15 @@
             this.checkBoxEmptyFields.Text = "显示空值";
             this.checkBoxEmptyFields.UseVisualStyleBackColor = true;
             // 
-            // button_back
+            // button_save_rule
             // 
-            this.button_back.Location = new System.Drawing.Point(6, 27);
-            this.button_back.Name = "button_back";
-            this.button_back.Size = new System.Drawing.Size(98, 32);
-            this.button_back.TabIndex = 22;
-            this.button_back.Text = "Back";
-            this.button_back.UseVisualStyleBackColor = true;
-            this.button_back.Click += new System.EventHandler(this.button_back_Click);
-            // 
-            // button_modify_rule
-            // 
-            this.button_modify_rule.Location = new System.Drawing.Point(6, 144);
-            this.button_modify_rule.Name = "button_modify_rule";
-            this.button_modify_rule.Size = new System.Drawing.Size(98, 35);
-            this.button_modify_rule.TabIndex = 21;
-            this.button_modify_rule.Text = "修改规则";
-            this.button_modify_rule.UseVisualStyleBackColor = true;
+            this.button_save_rule.Location = new System.Drawing.Point(6, 24);
+            this.button_save_rule.Name = "button_save_rule";
+            this.button_save_rule.Size = new System.Drawing.Size(98, 35);
+            this.button_save_rule.TabIndex = 21;
+            this.button_save_rule.Text = "保存规则";
+            this.button_save_rule.UseVisualStyleBackColor = true;
+            this.button_save_rule.Click += new System.EventHandler(this.button_save_rule_Click);
             // 
             // listView1
             // 
@@ -375,7 +373,7 @@
             this.lblMessageType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.lblMessageType.AutoSize = true;
-            this.lblMessageType.Location = new System.Drawing.Point(99, 489);
+            this.lblMessageType.Location = new System.Drawing.Point(102, 392);
             this.lblMessageType.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblMessageType.Name = "lblMessageType";
             this.lblMessageType.Size = new System.Drawing.Size(17, 18);
@@ -386,7 +384,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 489);
+            this.label1.Location = new System.Drawing.Point(12, 392);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(98, 18);
             this.label1.TabIndex = 32;
@@ -395,7 +393,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 537);
+            this.label2.Location = new System.Drawing.Point(12, 440);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(98, 18);
             this.label2.TabIndex = 33;
@@ -406,7 +404,7 @@
             this.lblMessageVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.lblMessageVersion.AutoSize = true;
-            this.lblMessageVersion.Location = new System.Drawing.Point(99, 537);
+            this.lblMessageVersion.Location = new System.Drawing.Point(102, 440);
             this.lblMessageVersion.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblMessageVersion.Name = "lblMessageVersion";
             this.lblMessageVersion.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -414,13 +412,6 @@
             this.lblMessageVersion.TabIndex = 34;
             this.lblMessageVersion.Text = "2";
             this.lblMessageVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // tsmi_programset
-            // 
-            this.tsmi_programset.Name = "tsmi_programset";
-            this.tsmi_programset.Size = new System.Drawing.Size(210, 30);
-            this.tsmi_programset.Text = "软件设置";
-            this.tsmi_programset.Click += new System.EventHandler(this.tsmi_programset_Click);
             // 
             // FormatSetForm
             // 
@@ -479,9 +470,8 @@
         private System.Windows.Forms.Button button_add_rule;
         private System.Windows.Forms.Button button_parse;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button button_modify_rule;
+        private System.Windows.Forms.Button button_save_rule;
         private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.Button button_back;
         private System.Windows.Forms.TextBox textBox_rule;
         private System.Windows.Forms.CheckBox checkBoxEmptyFields;
         private BrightIdeasSoftware.TreeListView treeListView1;
@@ -496,7 +486,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblMessageVersion;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button_delete_rule;
         private System.Windows.Forms.ToolStripMenuItem tsmi_programset;
     }
 }
