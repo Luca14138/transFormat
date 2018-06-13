@@ -27,7 +27,6 @@ namespace transFormat
             //去掉窗体边框
             objFrm.FormBorderStyle = FormBorderStyle.None;
             //指定当前子窗体显示的容器
-            objFrm.Parent = this.panel1;
             //显示窗体
             objFrm.Show();
         }
@@ -86,6 +85,11 @@ namespace transFormat
             this.Hide();
             RulePathSetForm objForm = new RulePathSetForm();
             objForm.Show();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            this.label_Time.Text = DateTime.Now.ToString();
         }
     }
 }

@@ -34,16 +34,16 @@ namespace transFormat
         public static string LISResultPath = @"C:\ShareFile\LIS\Result";
         public static string LISSeenPath = @"C:\ShareFile\LIS\Seen";
 
-        public Rule ResultRule;
+        public static Rule ResultRule;
         public Rule OrderRule;
-        public Rule SeenRule;
+        public static Rule SeenRule;
 
         /// <summary>
         /// 初始化ResultRule
         /// </summary>
-        private void iniResultRule()
+        public  static void iniResultRule()
         {
-            this.ResultRule = new Rule();
+            ResultRule = new Rule();
             StreamReader sr = new StreamReader(Global.ORU_R01rulepath, Encoding.Default);
             String line;
             SingleRule msinglerule;
@@ -63,7 +63,7 @@ namespace transFormat
         /// <summary>
         /// 初始化OrderRule
         /// </summary>
-        private void iniOrderRule()
+        public void iniOrderRule()
         {
             this.OrderRule = new Rule();
             StreamReader sr = new StreamReader(Global.ORM_O01rulepath, Encoding.Default);
@@ -95,9 +95,9 @@ namespace transFormat
         /// <summary>
         /// 初始化SeenRule
         /// </summary>
-        private void iniSeenRule()
+        public static void iniSeenRule()
         {
-            this.SeenRule = new Rule();
+            SeenRule = new Rule();
             StreamReader sr = new StreamReader(Global.SSU_U03rulepath, Encoding.Default);
             String line;
             SingleRule msinglerule;

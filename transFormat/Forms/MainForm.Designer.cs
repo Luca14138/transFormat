@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tsmi_file = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,11 +43,10 @@
             this.tsmi_programset = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.Test = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label_Time = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -121,21 +121,21 @@
             // tsmi_format_set
             // 
             this.tsmi_format_set.Name = "tsmi_format_set";
-            this.tsmi_format_set.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_format_set.Size = new System.Drawing.Size(164, 30);
             this.tsmi_format_set.Text = "格式设置";
             this.tsmi_format_set.Click += new System.EventHandler(this.tsmi_format_set_Click);
             // 
             // tsmi_format_IO
             // 
             this.tsmi_format_IO.Name = "tsmi_format_IO";
-            this.tsmi_format_IO.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_format_IO.Size = new System.Drawing.Size(164, 30);
             this.tsmi_format_IO.Text = "格式导入";
             this.tsmi_format_IO.Click += new System.EventHandler(this.tsmi_format_IO_Click);
             // 
             // tsmi_programset
             // 
             this.tsmi_programset.Name = "tsmi_programset";
-            this.tsmi_programset.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_programset.Size = new System.Drawing.Size(164, 30);
             this.tsmi_programset.Text = "软件设置";
             this.tsmi_programset.Click += new System.EventHandler(this.tsmi_programset_Click);
             // 
@@ -157,24 +157,19 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(123, 24);
             this.toolStripStatusLabel1.Text = "当前版本1.0.1";
             // 
-            // panel1
+            // timer1
             // 
-            this.panel1.Controls.Add(this.Test);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 32);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(999, 611);
-            this.panel1.TabIndex = 3;
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // Test
+            // label_Time
             // 
-            this.Test.Location = new System.Drawing.Point(229, 47);
-            this.Test.Name = "Test";
-            this.Test.Size = new System.Drawing.Size(93, 45);
-            this.Test.TabIndex = 0;
-            this.Test.Text = "button1";
-            this.Test.UseVisualStyleBackColor = true;
-            this.Test.Click += new System.EventHandler(this.Test_Click);
+            this.label_Time.AutoSize = true;
+            this.label_Time.Location = new System.Drawing.Point(46, 441);
+            this.label_Time.Name = "label_Time";
+            this.label_Time.Size = new System.Drawing.Size(62, 18);
+            this.label_Time.TabIndex = 3;
+            this.label_Time.Text = "label1";
             // 
             // MainForm
             // 
@@ -182,7 +177,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(999, 672);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.label_Time);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -197,7 +192,6 @@
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -214,11 +208,11 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem tsmi_exit;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolStripMenuItem tsmi_format_set;
         private System.Windows.Forms.ToolStripMenuItem tsmi_format_IO;
         private System.Windows.Forms.ToolStripMenuItem tsmi_programset;
-        private System.Windows.Forms.Button Test;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label label_Time;
     }
 }
 

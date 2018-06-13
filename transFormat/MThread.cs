@@ -48,7 +48,7 @@ namespace transFormat
                     ProcessRoche_Seen();
                    // ProcessLIS_Order();
 
-                //Thread.Sleep(3000);
+                Thread.Sleep(3000);
             } 
         }
         
@@ -57,6 +57,7 @@ namespace transFormat
         /// </summary>
         private void ProcessRoche_Result()
         {
+            string tMessage = null;
             var hl7Files = Directory.EnumerateFiles(Global.RocheResultPath, "*.hl7");
             if (hl7Files.Count() != 0)
             {
@@ -77,18 +78,20 @@ namespace transFormat
                             }
                             IMessage hl7Message = ParesHL7String(hl7);
                             if(hl7Message.GetType() == typeof(NHapi.Model.V25.Message.ORU_R01))
-                            {
-                                //第一步保存消息
-                                saveORU_R01(hl7Message, hl7,"2.5");
-                                //第二步转换消息
-                                 TransRoche_Result(hl7Message,"2.5");                               
+                            {                                                              
+                                //第一步转换消息
+                                 tMessage = TransRoche_Result(hl7Message,"2.5");
+
+                                //第二步保存消息
+                                saveORU_R01(hl7Message, hl7, "2.5",tMessage);
                             }
                             else if(hl7Message.GetType() == typeof(NHapi.Model.V23.Message.ORU_R01))
-                            {
-                                //第一步保存消息
-                                saveORU_R01(hl7Message, hl7, "2.3");
-                                //第二步转换消息
-                                TransRoche_Result(hl7Message, "2.3");
+                            {                               
+                                //第一步转换消息
+                                tMessage = TransRoche_Result(hl7Message, "2.3");
+
+                                //第二步保存消息
+                                saveORU_R01(hl7Message, hl7, "2.3",tMessage);
                             }                         
                         }
                         //第三步删除消息
@@ -107,6 +110,7 @@ namespace transFormat
         /// </summary>
         private void ProcessRoche_Seen()
         {
+            string tMessage = null;
             var hl7Files = Directory.EnumerateFiles(Global.RocheSeenPath, "*.hl7");
             if (hl7Files.Count() != 0)
             {
@@ -129,10 +133,11 @@ namespace transFormat
                             Console.WriteLine(hl7Message.GetType());
                             if (hl7Message.GetType() == typeof(NHapi.Model.V24.Message.SSU_U03))
                             {
-                                //第一步保存消息                              
-                                saveSSU_U03(hl7Message, hl7);
-                                //第二步转换消息
-                                TransRoche_Seen(hl7Message);
+                                //第一步转换消息
+                                tMessage = TransRoche_Seen(hl7Message);
+
+                                //第二步保存消息                              
+                                saveSSU_U03(hl7Message, hl7,tMessage);
                             }
                         }
                         //第三步删除消息
@@ -199,7 +204,7 @@ namespace transFormat
                     NHapi.Model.V25.Message.ORU_R01 mORU_R01_25 = (NHapi.Model.V25.Message.ORU_R01)HL7Message;
                     P_ORU_R01_25 pORU_R01_25 = new P_ORU_R01_25(mORU_R01_25);
 
-                    foreach (SingleRule m in mGlobal.ResultRule.RuleGroup)
+                    foreach (SingleRule m in Global.ResultRule.RuleGroup)
                     {
                         switch (m.Name)
                         {
@@ -260,7 +265,7 @@ namespace transFormat
                     NHapi.Model.V23.Message.ORU_R01 mORU_R01_23 = (NHapi.Model.V23.Message.ORU_R01)HL7Message;
                     P_ORU_R01_23 pORU_R01_23 = new P_ORU_R01_23(mORU_R01_23);
 
-                    foreach (SingleRule m in mGlobal.ResultRule.RuleGroup)
+                    foreach (SingleRule m in Global.ResultRule.RuleGroup)
                     {
                         switch (m.Name)
                         {
@@ -341,7 +346,7 @@ namespace transFormat
             NHapi.Model.V23.Message.ORM_O01 mORM_O01 = (NHapi.Model.V23.Message.ORM_O01)HL7Message;
             P_ORM_O01 pORM_O01 = new P_ORM_O01(mORM_O01);
 
-            foreach (SingleRule m in mGlobal.ResultRule.RuleGroup)
+            foreach (SingleRule m in Global.ResultRule.RuleGroup)
             {
                 switch (m.Name)
                 {
@@ -402,7 +407,7 @@ namespace transFormat
             NHapi.Model.V24.Message.SSU_U03 mSSU_U03 = (NHapi.Model.V24.Message.SSU_U03)HL7Message;
             P_SSU_U03 pSSU_U03 = new P_SSU_U03(mSSU_U03);
 
-            foreach (SingleRule m in mGlobal.SeenRule.RuleGroup)
+            foreach (SingleRule m in Global.SeenRule.RuleGroup)
             {
                 for(int i =0;i<m.Numbers.Count();i++)
                 {
@@ -462,7 +467,7 @@ namespace transFormat
         ///<summary>
         ///保存Result
         /// </summary>
-        private void saveORU_R01(IMessage hl7M, string hl7,string version)
+        private void saveORU_R01(IMessage hl7M, string hl7,string version,string tMessage)
         {
             string CtrID = null;
             string sampleID = null;//样本ID
@@ -509,12 +514,13 @@ namespace transFormat
 
             saveOMessage(CtrID, sampleID, mesDescription, PID, text);
             savePATIENT(PID,PName,SEX);
+            saveTMessage(CtrID, sampleID, mesDescription, PID, tMessage);
         }
 
         ///<summary>
         ///保存Seen
         /// </summary>
-        private void saveSSU_U03(IMessage hl7M, string hl7)
+        private void saveSSU_U03(IMessage hl7M, string hl7,string tMessage)
         {
             string CtrID = null;
             string sampleID = null;//样本ID
@@ -532,7 +538,7 @@ namespace transFormat
             text = hl7;
 
             saveOMessage(CtrID, sampleID, mesDescription, PID, text);
-
+            saveTMessage(CtrID, sampleID, mesDescription, PID, tMessage);
         }
 
         ///<summary>
@@ -566,6 +572,25 @@ namespace transFormat
             param.Add("SEX", SEX);
 
             if (PID != null)
+            {
+                msqlite.query(sql, param);
+            }
+        }
+
+        ///<summary>
+        ///保存TMessage表
+        /// </summary>
+        private void saveTMessage(string ctrid, string sampleid, string mesdescription, string pid, string text)
+        {
+            string sql = "insert into TMessage(CtrID,SampleID,MesDescription,PID,TEXT) values (@CtrID,@SampleID,@MesDescription,@PID,@TEXT)";
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("CtrID", ctrid);
+            param.Add("SampleID", sampleid);
+            param.Add("MesDescription", mesdescription);
+            param.Add("PID", pid);
+            param.Add("TEXT", text);
+
+            if (ctrid != null)
             {
                 msqlite.query(sql, param);
             }

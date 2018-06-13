@@ -521,6 +521,8 @@ namespace transFormat
                 mStream.Close();//关闭流
 
                 MessageBox.Show("保存成功！");
+                Global.iniResultRule();
+                Global.iniSeenRule();
             }
             catch(Exception err)
             {

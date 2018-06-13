@@ -323,21 +323,21 @@ namespace transFormat
             // tsmi_format_set
             // 
             this.tsmi_format_set.Name = "tsmi_format_set";
-            this.tsmi_format_set.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_format_set.Size = new System.Drawing.Size(164, 30);
             this.tsmi_format_set.Text = "格式设置";
             this.tsmi_format_set.Click += new System.EventHandler(this.tsmi_format_set_Click);
             // 
             // tsmi_format_IO
             // 
             this.tsmi_format_IO.Name = "tsmi_format_IO";
-            this.tsmi_format_IO.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_format_IO.Size = new System.Drawing.Size(164, 30);
             this.tsmi_format_IO.Text = "格式导入";
             this.tsmi_format_IO.Click += new System.EventHandler(this.tsmi_format_IO_Click);
             // 
             // tsmi_programset
             // 
             this.tsmi_programset.Name = "tsmi_programset";
-            this.tsmi_programset.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_programset.Size = new System.Drawing.Size(164, 30);
             this.tsmi_programset.Text = "软件设置";
             this.tsmi_programset.Click += new System.EventHandler(this.tsmi_programset_Click);
             // 
@@ -373,7 +373,7 @@ namespace transFormat
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "ParseForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "HL7消息转换器";
+            this.Text = "HL7消息转换器-消息解析";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ParseForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.treeListView1)).EndInit();
             this.groupBox_Parse.ResumeLayout(false);

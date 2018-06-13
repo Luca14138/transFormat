@@ -44,11 +44,11 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tb_PID = new System.Windows.Forms.TextBox();
+            this.tb_PName = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tb_SampleID = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBox_mes_direc = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBox_mes_type = new System.Windows.Forms.ComboBox();
@@ -133,21 +133,21 @@
             // tsmi_format_set
             // 
             this.tsmi_format_set.Name = "tsmi_format_set";
-            this.tsmi_format_set.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_format_set.Size = new System.Drawing.Size(164, 30);
             this.tsmi_format_set.Text = "格式设置";
             this.tsmi_format_set.Click += new System.EventHandler(this.tsmi_format_set_Click);
             // 
             // tsmi_format_IO
             // 
             this.tsmi_format_IO.Name = "tsmi_format_IO";
-            this.tsmi_format_IO.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_format_IO.Size = new System.Drawing.Size(164, 30);
             this.tsmi_format_IO.Text = "格式导入";
             this.tsmi_format_IO.Click += new System.EventHandler(this.tsmi_format_IO_Click);
             // 
             // tsmi_programset
             // 
             this.tsmi_programset.Name = "tsmi_programset";
-            this.tsmi_programset.Size = new System.Drawing.Size(210, 30);
+            this.tsmi_programset.Size = new System.Drawing.Size(164, 30);
             this.tsmi_programset.Text = "软件设置";
             this.tsmi_programset.Click += new System.EventHandler(this.tsmi_programset_Click);
             // 
@@ -182,11 +182,11 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.tb_PID);
+            this.groupBox2.Controls.Add(this.tb_PName);
             this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.tb_SampleID);
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.comboBox_mes_direc);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.comboBox_mes_type);
@@ -198,59 +198,55 @@
             this.groupBox2.Size = new System.Drawing.Size(909, 222);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "查询危急值";
+            this.groupBox2.Text = "查询条件";
             // 
-            // textBox2
+            // tb_PID
             // 
-            this.textBox2.Location = new System.Drawing.Point(473, 79);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(159, 28);
-            this.textBox2.TabIndex = 10;
+            this.tb_PID.Location = new System.Drawing.Point(470, 79);
+            this.tb_PID.Name = "tb_PID";
+            this.tb_PID.Size = new System.Drawing.Size(159, 28);
+            this.tb_PID.TabIndex = 11;
+            // 
+            // tb_PName
+            // 
+            this.tb_PName.Location = new System.Drawing.Point(470, 28);
+            this.tb_PName.Name = "tb_PName";
+            this.tb_PName.Size = new System.Drawing.Size(159, 28);
+            this.tb_PName.TabIndex = 10;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(379, 82);
+            this.label5.Location = new System.Drawing.Point(379, 28);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(44, 18);
             this.label5.TabIndex = 9;
             this.label5.Text = "姓名";
             // 
-            // textBox1
+            // tb_SampleID
             // 
-            this.textBox1.Location = new System.Drawing.Point(473, 28);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(159, 28);
-            this.textBox1.TabIndex = 8;
+            this.tb_SampleID.Location = new System.Drawing.Point(103, 135);
+            this.tb_SampleID.Name = "tb_SampleID";
+            this.tb_SampleID.Size = new System.Drawing.Size(159, 28);
+            this.tb_SampleID.TabIndex = 8;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(379, 34);
+            this.label4.Location = new System.Drawing.Point(7, 138);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(62, 18);
             this.label4.TabIndex = 7;
             this.label4.Text = "样本号";
             // 
-            // comboBox_mes_direc
-            // 
-            this.comboBox_mes_direc.FormattingEnabled = true;
-            this.comboBox_mes_direc.Items.AddRange(new object[] {
-            "IN",
-            "OUT"});
-            this.comboBox_mes_direc.Location = new System.Drawing.Point(103, 127);
-            this.comboBox_mes_direc.Name = "comboBox_mes_direc";
-            this.comboBox_mes_direc.Size = new System.Drawing.Size(162, 26);
-            this.comboBox_mes_direc.TabIndex = 6;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 130);
+            this.label3.Location = new System.Drawing.Point(379, 79);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 18);
+            this.label3.Size = new System.Drawing.Size(62, 18);
             this.label3.TabIndex = 5;
-            this.label3.Text = "方向";
+            this.label3.Text = "病人ID";
             // 
             // label2
             // 
@@ -355,14 +351,14 @@
         private System.Windows.Forms.ComboBox comboBox_mes_type;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button search_button;
-        private System.Windows.Forms.ComboBox comboBox_mes_direc;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ToolStripMenuItem tsmi_format_set;
         private System.Windows.Forms.ToolStripMenuItem tsmi_format_IO;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tb_PName;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tb_SampleID;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ToolStripMenuItem tsmi_programset;
+        private System.Windows.Forms.TextBox tb_PID;
     }
 }
